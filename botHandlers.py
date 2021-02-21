@@ -34,7 +34,7 @@ def survey_finish_handler(update: Update, context: CallbackContext) -> int:
 
 def plans_info_handler(update: Update, context: CallbackContext) -> int:
     text = botMessageProvider.get_plans_info_state_text()
-    update.message.reply_text(text, parse_mode='MarkdownV2')
+    update.message.reply_text(text, parse_mode='Markdown')
     return botStates.PLANS_INFO_STATE
 
 
@@ -93,7 +93,7 @@ def fork_handler(update: Update, context: CallbackContext) -> int:
     else:
         return botStates.QUESTION_2_STATE
 
-
+# РАЗДЕЛ 1
 def part_1_question_1_handler(update: Update, context: CallbackContext) -> int:
     text = botMessageProvider.get_part_1_question_1_state_text()
     reply_keyboard = [['Да', 'Нет']]
@@ -104,7 +104,7 @@ def part_1_question_1_handler(update: Update, context: CallbackContext) -> int:
 
 def part_1_question_2_handler(update: Update, context: CallbackContext) -> int:
     text = 'Где *ищете перевод* иностранного слова?'
-    update.message.reply_text(text, parse_mode='MarkdownV2')
+    update.message.reply_text(text, parse_mode='Markdown')
     return botStates.PART_1_QUESTION_2_STATE
 
 
@@ -120,18 +120,57 @@ def part_1_end_handler(update: Update, context: CallbackContext) -> int:
     return botStates.PART_1_END_STATE
 
 
+# РАЗДЕЛ 2
 def part_2_question_1_handler(update: Update, context: CallbackContext) -> int:
-    text = 'Для чего учите новый язык?'
-    update.message.reply_text(text)
-    return botStates.FORK_STATE
+    text = '*Для чего* учите новый язык?'
+    update.message.reply_text(text, parse_mode='Markdown')
+    return botStates.PART_2_QUESTION_1_STATE
 
 
+def part_2_question_2_handler(update: Update, context: CallbackContext) -> int:
+    text = 'Как *ищете перевод* иностранного слова?'
+    update.message.reply_text(text, parse_mode='Markdown')
+    return botStates.PART_2_QUESTION_2_STATE
+
+
+def part_2_question_3_handler(update: Update, context: CallbackContext) -> int:
+    text = 'Какие *инструменты* используете для запоминания новых слов?'
+    update.message.reply_text(text, parse_mode='Markdown')
+    return botStates.PART_2_QUESTION_3_STATE
+
+
+def part_2_question_4_handler(update: Update, context: CallbackContext) -> int:
+    text = 'Бывают *проблемы с поиском* правильного смысла перевода?'
+    update.message.reply_text(text, parse_mode='Markdown')
+    return botStates.PART_2_QUESTION_4_STATE
+
+
+def part_2_question_5_handler(update: Update, context: CallbackContext) -> int:
+    text = 'Насколько вам важна *эффективность* процесса изучения языка?'
+    update.message.reply_text(text, parse_mode='Markdown')
+    return botStates.PART_2_QUESTION_5_STATE
+
+
+def part_2_question_6_handler(update: Update, context: CallbackContext) -> int:
+    text = 'Как отслеживаете свой *текущий прогресс* в изучении нового языка?'
+    update.message.reply_text(text, parse_mode='Markdown')
+    return botStates.PART_2_QUESTION_6_STATE
+
+
+def part_2_question_7_handler(update: Update, context: CallbackContext) -> int:
+    text = 'Что вас *мотивирует* изучать новый язык?'
+    update.message.reply_text(text, parse_mode='Markdown')
+    return botStates.PART_2_QUESTION_7_STATE
+
+
+# РАЗДЕЛ 3
 def part_3_question_1_handler(update: Update, context: CallbackContext) -> int:
     text = 'Какие инструменты использовали для запоминания новых слов?'
     update.message.reply_text(text)
     return botStates.FORK_STATE
 
 
+# РАЗДЕЛ 4
 def part_4_question_1_handler(update: Update, context: CallbackContext) -> int:
     # TODO: а кнопка "свой вариант ответа" где? и как сделать?
     text = 'Какой язык сейчас учите?'
