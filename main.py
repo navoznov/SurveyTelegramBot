@@ -28,22 +28,55 @@ conversation_handler = ConversationHandler(
     entry_points=[CommandHandler('start', botHandlers.start_state_handler)],
     states={
         botStates.START_STATE: [
+            CommandHandler('start', botHandlers.start_state_handler),
             MessageHandler(Filters.regex('Начнем'), botHandlers.question_1_handler),
         ],
         botStates.QUESTION_1_STATE: [
+            CommandHandler('start', botHandlers.start_state_handler),
             MessageHandler(Filters.text, botHandlers.question_2_handler),
-            CommandHandler('cancel', cancel)
         ],
         botStates.QUESTION_2_STATE: [
+            CommandHandler('start', botHandlers.start_state_handler),
             MessageHandler(Filters.text, botHandlers.fork_handler),
-            CommandHandler('cancel', cancel)
         ],
         botStates.FORK_STATE: [
+            CommandHandler('start', botHandlers.start_state_handler),
             MessageHandler(Filters.text, botHandlers.fork_handler),
-            CommandHandler('cancel', cancel)
         ],
+        botStates.PART_1_QUESTION_1_STATE: [
+            MessageHandler(Filters.regex('[Нн]ет'), botHandlers.part_1_end_handler),
+            MessageHandler(Filters.regex('[Дд]а'), botHandlers.part_1_question_2_handler),
+            CommandHandler('start', botHandlers.start_state_handler),
+        ],
+        botStates.PART_1_QUESTION_2_STATE: [
+            CommandHandler('start', botHandlers.start_state_handler),
+            MessageHandler(Filters.text, botHandlers.part_1_question_3_handler),
+        ],
+        botStates.PART_1_QUESTION_3_STATE: [
+            CommandHandler('start', botHandlers.start_state_handler),
+            MessageHandler(Filters.text, botHandlers.survey_finish_handler),
+        ],
+        botStates.PART_1_END_STATE: [
+            CommandHandler('start', botHandlers.start_state_handler),
+            MessageHandler(Filters.text, botHandlers.survey_finish_handler),
+        ],
+        botStates.SURVEY_FINISH_STATE: [
+            CommandHandler('start', botHandlers.start_state_handler),
+            MessageHandler(Filters.regex('[Нн]ет'), botHandlers.total_finish_handler),
+            MessageHandler(Filters.regex('[Дд]а'), botHandlers.plans_info_handler),
+        ],
+        botStates.PLANS_INFO_STATE: [
+            CommandHandler('start', botHandlers.start_state_handler),
+            MessageHandler(Filters.text, botHandlers.total_finish_handler),
+        ],
+        botStates.TOTAL_FINISH_STATE: [
+            CommandHandler('start', botHandlers.start_state_handler),
+            MessageHandler(Filters.text, botHandlers.total_finish_handler),
+        ],
+
     },
     fallbacks=[CommandHandler('cancel', cancel)],
+
 )
 
 dispatcher.add_handler(conversation_handler)
