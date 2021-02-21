@@ -248,4 +248,110 @@ def part_4_question_1_handler(update: Update, context: CallbackContext) -> int:
                        'Французский', 'Итальянский', 'Португальский', 'Испанский']]
     keyboard_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
     update.message.reply_text(text, reply_markup=keyboard_markup)
-    return botStates.FORK_STATE
+    return botStates.PART_4_QUESTION_1_STATE
+
+def part_4_question_2_handler(update: Update, context: CallbackContext) -> int:
+    text = '*Для чего* учите еще один новый язык?'
+    update.message.reply_text(text, parse_mode='Markdown')
+    return botStates.PART_4_QUESTION_2_STATE
+
+
+def part_4_question_3_handler(update: Update, context: CallbackContext) -> int:
+    text = 'Как *ищете перевод* иностранного слова'
+    update.message.reply_text(text, parse_mode='Markdown')
+    return botStates.PART_4_QUESTION_3_STATE
+
+
+def part_4_question_4_handler(update: Update, context: CallbackContext) -> int:
+    text = 'Бывают *проблемы с поиском* правильного смысла перевода?'
+    reply_keyboard = [['Да', 'Нет']]
+    keyboard_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
+    update.message.reply_text(text, parse_mode='Markdown', reply_markup=keyboard_markup)
+    return botStates.PART_4_QUESTION_4_STATE
+
+
+def part_4_question_4_1_handler(update: Update, context: CallbackContext) -> int:
+    text = 'Как находили правильный перевод?'
+    update.message.reply_text(text, parse_mode='Markdown')
+    return botStates.PART_4_QUESTION_4_1_STATE
+
+
+def part_4_question_4_2_handler(update: Update, context: CallbackContext) -> int:
+    text = 'Что помогает найти правильный смысл слова?'
+    update.message.reply_text(text, parse_mode='Markdown')
+    return botStates.PART_4_QUESTION_4_2_STATE
+
+
+def part_4_question_5_handler(update: Update, context: CallbackContext) -> int:
+    text = 'Какие методики используете чтобы запоминать новые слова'
+    update.message.reply_text(text, parse_mode='Markdown')
+    return botStates.PART_4_QUESTION_5_STATE
+
+
+def part_4_question_6_handler(update: Update, context: CallbackContext) -> int:
+    text = 'Какие еще *инструменты* используете для изучения языка'
+    update.message.reply_text(text, parse_mode='Markdown')
+    return botStates.PART_4_QUESTION_6_STATE
+
+
+def part_4_question_7_handler(update: Update, context: CallbackContext) -> int:
+    text = 'Как *знание* других языков и *опыт* их изучения *помогает* с новым языком'
+    update.message.reply_text(text, parse_mode='Markdown')
+    return botStates.PART_4_QUESTION_7_STATE
+
+
+def part_4_question_8_handler(update: Update, context: CallbackContext) -> int:
+    text = 'Проверяете ли значение нового слова в переводе на известные вам языки?'
+    reply_keyboard = [['Да', 'Нет']]
+    keyboard_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
+    update.message.reply_text(text, reply_markup=keyboard_markup)
+    return botStates.PART_4_QUESTION_8_STATE
+
+
+def part_4_question_8_yes_1_handler(update: Update, context: CallbackContext) -> int:
+    text = 'Чем полезно проверять перевод нового слова сразу на несколько языков?'
+    update.message.reply_text(text, parse_mode='Markdown')
+    return botStates.PART_4_QUESTION_8_YES_1_STATE
+
+
+def part_4_question_8_no_1_handler(update: Update, context: CallbackContext) -> int:
+    text = 'Как узнаете смысл слова? Переводите обычно на свой родной язык или как-то иначе?'
+    update.message.reply_text(text, parse_mode='Markdown')
+    return botStates.PART_4_QUESTION_8_NO_1_STATE
+
+
+def part_4_question_9_handler(update: Update, context: CallbackContext) -> int:
+    # сюда переход с двух состояний (8yes и 8no) - это надо как то обработать наверное
+    text = 'Насколько вам важна *эффективность* процесса изучения языка?'
+    update.message.reply_text(text, parse_mode='Markdown')
+    return botStates.PART_4_QUESTION_9_STATE
+
+
+def part_4_question_10_handler(update: Update, context: CallbackContext) -> int:
+    text = 'Как отслеживаете свой *текущий уровень* в изучении нового языка?'
+    update.message.reply_text(text, parse_mode='Markdown')
+    return botStates.PART_4_QUESTION_10_STATE
+
+
+def part_4_question_11_handler(update: Update, context: CallbackContext) -> int:
+    text = 'Отслеживаете текущее количество известных слов? Если да, то как?'
+    update.message.reply_text(text, parse_mode='Markdown')
+    return botStates.PART_4_QUESTION_11_STATE
+
+
+def part_4_question_12_handler(update: Update, context: CallbackContext) -> int:
+    text = 'Что вас *мотивирует* изучать новый язык?'
+    update.message.reply_text(text, parse_mode='Markdown')
+    return botStates.PART_4_QUESTION_12_STATE
+
+
+
+
+
+
+
+
+
+
+
+

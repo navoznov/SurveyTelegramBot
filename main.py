@@ -145,6 +145,74 @@ conversation_handler = ConversationHandler(
             MessageHandler(Filters.text, botHandlers.survey_finish_handler),
         ],
 
+        # РАЗДЕЛ 4
+        botStates.PART_4_QUESTION_1_STATE: [
+            CommandHandler('start', botHandlers.start_state_handler),
+            MessageHandler(Filters.text, botHandlers.part_4_question_2_handler),
+        ],
+        botStates.PART_4_QUESTION_2_STATE: [
+            CommandHandler('start', botHandlers.start_state_handler),
+            MessageHandler(Filters.text, botHandlers.part_4_question_3_handler),
+        ],
+        botStates.PART_4_QUESTION_3_STATE: [
+            CommandHandler('start', botHandlers.start_state_handler),
+            MessageHandler(Filters.text, botHandlers.part_4_question_4_handler),
+        ],
+        botStates.PART_4_QUESTION_4_STATE: [
+            MessageHandler(Filters.regex('[Нн]ет'), botHandlers.part_4_question_5_handler),
+            MessageHandler(Filters.regex('[Дд]а'), botHandlers.part_4_question_4_1_handler),
+            CommandHandler('start', botHandlers.start_state_handler),
+        ],
+        botStates.PART_4_QUESTION_4_1_STATE: [
+            CommandHandler('start', botHandlers.start_state_handler),
+            MessageHandler(Filters.text, botHandlers.part_4_question_4_2_handler),
+        ],
+        botStates.PART_4_QUESTION_4_2_STATE: [
+            CommandHandler('start', botHandlers.start_state_handler),
+            MessageHandler(Filters.text, botHandlers.part_4_question_5_handler),
+        ],
+        botStates.PART_4_QUESTION_5_STATE: [
+            CommandHandler('start', botHandlers.start_state_handler),
+            MessageHandler(Filters.text, botHandlers.part_4_question_6_handler),
+        ],
+        botStates.PART_4_QUESTION_6_STATE: [
+            CommandHandler('start', botHandlers.start_state_handler),
+            MessageHandler(Filters.text, botHandlers.part_4_question_7_handler),
+        ],
+        botStates.PART_4_QUESTION_7_STATE: [
+            CommandHandler('start', botHandlers.start_state_handler),
+            MessageHandler(Filters.text, botHandlers.part_4_question_8_handler),
+        ],
+        botStates.PART_4_QUESTION_8_STATE: [
+            MessageHandler(Filters.regex('[Нн]ет'), botHandlers.part_4_question_8_no_1_handler),
+            MessageHandler(Filters.regex('[Дд]а'), botHandlers.part_4_question_8_yes_1_handler),
+            CommandHandler('start', botHandlers.start_state_handler),
+        ],
+        botStates.PART_4_QUESTION_8_NO_1_STATE: [
+            CommandHandler('start', botHandlers.start_state_handler),
+            MessageHandler(Filters.text, botHandlers.part_4_question_9_handler),
+        ],
+        botStates.PART_4_QUESTION_8_YES_1_STATE: [
+            CommandHandler('start', botHandlers.start_state_handler),
+            MessageHandler(Filters.text, botHandlers.part_4_question_9_handler),
+        ],
+        botStates.PART_4_QUESTION_9_STATE: [
+            CommandHandler('start', botHandlers.start_state_handler),
+            MessageHandler(Filters.text, botHandlers.part_4_question_10_handler),
+        ],
+        botStates.PART_4_QUESTION_10_STATE: [
+            CommandHandler('start', botHandlers.start_state_handler),
+            MessageHandler(Filters.text, botHandlers.part_4_question_11_handler),
+        ],
+        botStates.PART_4_QUESTION_11_STATE: [
+            CommandHandler('start', botHandlers.start_state_handler),
+            MessageHandler(Filters.text, botHandlers.part_4_question_12_handler),
+        ],
+        botStates.PART_4_QUESTION_12_STATE: [
+            CommandHandler('start', botHandlers.start_state_handler),
+            MessageHandler(Filters.text, botHandlers.survey_finish_handler),
+        ],
+
         # ОКОНЧАНИЕ
         botStates.SURVEY_FINISH_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
