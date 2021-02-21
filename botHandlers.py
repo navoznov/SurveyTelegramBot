@@ -167,7 +167,77 @@ def part_2_question_7_handler(update: Update, context: CallbackContext) -> int:
 def part_3_question_1_handler(update: Update, context: CallbackContext) -> int:
     text = 'Какие инструменты использовали для запоминания новых слов?'
     update.message.reply_text(text)
-    return botStates.FORK_STATE
+    return botStates.PART_3_QUESTION_1_STATE
+
+
+def part_3_question_2_handler(update: Update, context: CallbackContext) -> int:
+    text = 'Как искали перевод иностранного слова?'
+    update.message.reply_text(text, parse_mode='Markdown')
+    return botStates.PART_3_QUESTION_2_STATE
+
+
+def part_3_question_3_handler(update: Update, context: CallbackContext) -> int:
+    text = 'Бывали проблемы с поиском правильного смысла перевода? Как находили верный перевод?'
+    update.message.reply_text(text, parse_mode='Markdown')
+    return botStates.PART_3_QUESTION_3_STATE
+
+
+def part_3_question_4_handler(update: Update, context: CallbackContext) -> int:
+    text = 'Когда-нибудь проверяли сколько вы знаете слов?'
+    reply_keyboard = [['Да', 'Нет']]
+    keyboard_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
+    update.message.reply_text(text, reply_markup=keyboard_markup)
+    return botStates.PART_3_QUESTION_4_STATE
+
+
+def part_3_question_4_1_handler(update: Update, context: CallbackContext) -> int:
+    text = 'Сколько примерно слов сейчас знаете?'
+    update.message.reply_text(text, parse_mode='Markdown')
+    return botStates.PART_3_QUESTION_4_1_STATE
+
+
+def part_3_question_4_2_handler(update: Update, context: CallbackContext) -> int:
+    text = 'Чем пользовались чтобы узнать это число?'
+    update.message.reply_text(text, parse_mode='Markdown')
+    return botStates.PART_3_QUESTION_4_2_STATE
+
+
+def part_3_question_4_3_handler(update: Update, context: CallbackContext) -> int:
+    text = 'Продолжаете набирать словарный запас?'
+    update.message.reply_text(text, parse_mode='Markdown')
+    return botStates.PART_3_QUESTION_4_3_STATE
+
+
+def part_3_question_5_handler(update: Update, context: CallbackContext) -> int:
+    text = 'Планируете изучать новый язык?'
+    reply_keyboard = [['Да', 'Нет']]
+    keyboard_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
+    update.message.reply_text(text, reply_markup=keyboard_markup)
+    return botStates.PART_3_QUESTION_5_STATE
+
+
+def part_3_question_5_1_handler(update: Update, context: CallbackContext) -> int:
+    text = 'Что вас останавливает?'
+    update.message.reply_text(text, parse_mode='Markdown')
+    return botStates.PART_3_QUESTION_5_1_STATE
+
+
+def part_3_question_5_2_handler(update: Update, context: CallbackContext) -> int:
+    text = 'Как думаете, вам поможет знание двух языков в изучении третьего? Если да, то чем?'
+    update.message.reply_text(text, parse_mode='Markdown')
+    return botStates.PART_3_QUESTION_5_2_STATE
+
+
+def part_3_question_5_3_handler(update: Update, context: CallbackContext) -> int:
+    text = 'С чего начнёте учить новый язык?'
+    update.message.reply_text(text, parse_mode='Markdown')
+    return botStates.PART_3_QUESTION_5_3_STATE
+
+
+def part_3_question_6_handler(update: Update, context: CallbackContext) -> int:
+    text = 'Какой мотивации не хватает чтобы начать изучать новый язык?'
+    update.message.reply_text(text, parse_mode='Markdown')
+    return botStates.PART_3_QUESTION_6_STATE
 
 
 # РАЗДЕЛ 4
