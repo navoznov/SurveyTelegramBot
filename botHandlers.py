@@ -121,7 +121,7 @@ def part_1_question_1_handler(update: Update, context: CallbackContext) -> int:
 
     keys = [f'question{i+1}' for i in range(4)]
     for key in keys:
-        botAnsweSaver.set_empty_answer(context.user_data, key)
+        botAnswerSaver.set_empty_answer(context.user_data, key)
 
 
     text = botMessageProvider.get_part_1_question_1_state_text()
@@ -178,7 +178,7 @@ def part_2_question_1_handler(update: Update, context: CallbackContext) -> int:
 
     keys = [f'question{i+1}' for i in range(7)]
     for key in keys:
-        botAnsweSaver.set_empty_answer(context.user_data, key)
+        botAnswerSaver.set_empty_answer(context.user_data, key)
 
     text = '*Для чего* учите новый язык?'
     update.message.reply_text(text, parse_mode='Markdown')
