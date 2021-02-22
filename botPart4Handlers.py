@@ -27,7 +27,7 @@ def part_4_question_1_handler(update: Update, context: CallbackContext) -> int:
 
 def part_4_question_2_handler(update: Update, context: CallbackContext) -> int:
     message = helpers.get_message(update)
-    botAnswerSaver.save_answer(message, context, 'question6')
+    botAnswerSaver.save_answer(message, context, 'question1')
     text = '*Для чего* учите еще один новый язык?'
     message.reply_text(text, parse_mode='Markdown')
     return botStates.PART_4_QUESTION_2_STATE
@@ -35,7 +35,7 @@ def part_4_question_2_handler(update: Update, context: CallbackContext) -> int:
 
 def part_4_question_3_handler(update: Update, context: CallbackContext) -> int:
     message = helpers.get_message(update)
-    botAnswerSaver.save_answer(message, context, 'question6')
+    botAnswerSaver.save_answer(message, context, 'question2')
     text = 'Как *ищете перевод* иностранного слова'
     message.reply_text(text, parse_mode='Markdown')
     return botStates.PART_4_QUESTION_3_STATE
@@ -43,17 +43,18 @@ def part_4_question_3_handler(update: Update, context: CallbackContext) -> int:
 
 def part_4_question_4_handler(update: Update, context: CallbackContext) -> int:
     message = helpers.get_message(update)
-    botAnswerSaver.save_answer(message, context, 'question6')
+    botAnswerSaver.save_answer(message, context, 'question3')
     text = 'Бывают *проблемы с поиском* правильного смысла перевода?'
     reply_keyboard = [['Да', 'Нет']]
     keyboard_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
     message.reply_text(text, parse_mode='Markdown', reply_markup=keyboard_markup)
+    context.user_data['state'] = botStates.PART_4_QUESTION_4_STATE
     return botStates.PART_4_QUESTION_4_STATE
 
 
 def part_4_question_4_1_handler(update: Update, context: CallbackContext) -> int:
     message = helpers.get_message(update)
-    botAnswerSaver.save_answer(message, context, 'question6')
+    botAnswerSaver.save_answer(message, context, 'question4')
     text = 'Как находили правильный перевод?'
     message.reply_text(text, parse_mode='Markdown')
     return botStates.PART_4_QUESTION_4_1_STATE
@@ -61,15 +62,20 @@ def part_4_question_4_1_handler(update: Update, context: CallbackContext) -> int
 
 def part_4_question_4_2_handler(update: Update, context: CallbackContext) -> int:
     message = helpers.get_message(update)
-    botAnswerSaver.save_answer(message, context, 'question6')
+    botAnswerSaver.save_answer(message, context, 'question4_1')
     text = 'Что помогает найти правильный смысл слова?'
     message.reply_text(text, parse_mode='Markdown')
+    context.user_data['state'] = botStates.PART_4_QUESTION_4_2_STATE
     return botStates.PART_4_QUESTION_4_2_STATE
 
 
 def part_4_question_5_handler(update: Update, context: CallbackContext) -> int:
     message = helpers.get_message(update)
-    botAnswerSaver.save_answer(message, context, 'question6')
+    if context.user_data['state'] == botStates.PART_4_QUESTION_4_STATE:
+        botAnswerSaver.save_answer(message, context, 'question4')
+    elif context.user_data['state'] == botStates.PART_4_QUESTION_4_2_STATE:
+        botAnswerSaver.save_answer(message, context, 'question4_2')
+
     text = 'Какие методики используете чтобы запоминать новые слова'
     message.reply_text(text, parse_mode='Markdown')
     return botStates.PART_4_QUESTION_5_STATE
@@ -77,7 +83,7 @@ def part_4_question_5_handler(update: Update, context: CallbackContext) -> int:
 
 def part_4_question_6_handler(update: Update, context: CallbackContext) -> int:
     message = helpers.get_message(update)
-    botAnswerSaver.save_answer(message, context, 'question6')
+    botAnswerSaver.save_answer(message, context, 'question5')
     text = 'Какие еще *инструменты* используете для изучения языка'
     message.reply_text(text, parse_mode='Markdown')
     return botStates.PART_4_QUESTION_6_STATE
@@ -93,34 +99,40 @@ def part_4_question_7_handler(update: Update, context: CallbackContext) -> int:
 
 def part_4_question_8_handler(update: Update, context: CallbackContext) -> int:
     message = helpers.get_message(update)
-    botAnswerSaver.save_answer(message, context, 'question6')
+    botAnswerSaver.save_answer(message, context, 'question7')
     text = 'Проверяете ли значение нового слова в переводе на известные вам языки?'
     reply_keyboard = [['Да', 'Нет']]
     keyboard_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
     message.reply_text(text, reply_markup=keyboard_markup)
+    context.user_data['state'] = botStates.PART_4_QUESTION_8_STATE
     return botStates.PART_4_QUESTION_8_STATE
 
 
 def part_4_question_8_yes_1_handler(update: Update, context: CallbackContext) -> int:
     message = helpers.get_message(update)
-    botAnswerSaver.save_answer(message, context, 'question6')
+    botAnswerSaver.save_answer(message, context, 'question8')
     text = 'Чем полезно проверять перевод нового слова сразу на несколько языков?'
     message.reply_text(text, parse_mode='Markdown')
+    context.user_data['state'] = botStates.PART_4_QUESTION_8_YES_1_STATE
     return botStates.PART_4_QUESTION_8_YES_1_STATE
 
 
 def part_4_question_8_no_1_handler(update: Update, context: CallbackContext) -> int:
     message = helpers.get_message(update)
-    botAnswerSaver.save_answer(message, context, 'question6')
+    botAnswerSaver.save_answer(message, context, 'question8')
     text = 'Как узнаете смысл слова? Переводите обычно на свой родной язык или как-то иначе?'
     message.reply_text(text, parse_mode='Markdown')
+    context.user_data['state'] = botStates.PART_4_QUESTION_8_NO_1_STATE
     return botStates.PART_4_QUESTION_8_NO_1_STATE
 
 
 def part_4_question_9_handler(update: Update, context: CallbackContext) -> int:
-    # сюда переход с двух состояний (8yes и 8no) - это надо как то обработать наверное
     message = helpers.get_message(update)
-    botAnswerSaver.save_answer(message, context, 'question6')
+    if context.user_data['state'] == botStates.PART_4_QUESTION_8_YES_1_STATE:
+        botAnswerSaver.save_answer(message, context, 'question8_yes_1')
+    elif context.user_data['state'] == botStates.PART_4_QUESTION_8_NO_1_STATE:
+        botAnswerSaver.save_answer(message, context, 'question8_no_1')
+
     text = 'Насколько вам важна *эффективность* процесса изучения языка?'
     message.reply_text(text, parse_mode='Markdown')
     return botStates.PART_4_QUESTION_9_STATE
@@ -128,7 +140,7 @@ def part_4_question_9_handler(update: Update, context: CallbackContext) -> int:
 
 def part_4_question_10_handler(update: Update, context: CallbackContext) -> int:
     message = helpers.get_message(update)
-    botAnswerSaver.save_answer(message, context, 'question6')
+    botAnswerSaver.save_answer(message, context, 'question9')
     text = 'Как отслеживаете свой *текущий уровень* в изучении нового языка?'
     message.reply_text(text, parse_mode='Markdown')
     return botStates.PART_4_QUESTION_10_STATE
@@ -136,7 +148,7 @@ def part_4_question_10_handler(update: Update, context: CallbackContext) -> int:
 
 def part_4_question_11_handler(update: Update, context: CallbackContext) -> int:
     message = helpers.get_message(update)
-    botAnswerSaver.save_answer(message, context, 'question6')
+    botAnswerSaver.save_answer(message, context, 'question10')
     text = 'Отслеживаете текущее количество известных слов? Если да, то как?'
     message.reply_text(text, parse_mode='Markdown')
     return botStates.PART_4_QUESTION_11_STATE
@@ -144,7 +156,7 @@ def part_4_question_11_handler(update: Update, context: CallbackContext) -> int:
 
 def part_4_question_12_handler(update: Update, context: CallbackContext) -> int:
     message = helpers.get_message(update)
-    botAnswerSaver.save_answer(message, context, 'question6')
+    botAnswerSaver.save_answer(message, context, 'question11')
     text = 'Что вас *мотивирует* изучать новый язык?'
     message.reply_text(text, parse_mode='Markdown')
     return botStates.PART_4_QUESTION_12_STATE
