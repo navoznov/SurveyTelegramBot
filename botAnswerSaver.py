@@ -4,6 +4,7 @@
 from telegram import Message
 from typing import Dict, Optional
 import json
+import os
 
 def save_answer(message: Message, user_data: Optional[Dict], question_id: str) -> None:
     if not message.voice is None:
@@ -52,6 +53,9 @@ def save_user_answers_to_file(user: Optional['User'], user_data: Optional[Dict])
     answers = get_answers(user_data)
     user_answers_obj = {'user_info': user_info, 'answers': answers}
     filename = f'answers/{user.id}.json'
+    if not os.path.exists(answers_directory_name):
+        os.makedirs(os.path.dirname(filename))
+
     with open(filename, 'w', encoding='utf-8') as f:
         json_str = json.dumps(user_answers_obj, ensure_ascii=False)
         f.write(json_str)
