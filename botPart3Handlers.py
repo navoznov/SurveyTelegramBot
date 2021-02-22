@@ -16,7 +16,9 @@ import botAnswerSaver
 def part_3_question_1_handler(update: Update, context: CallbackContext) -> int:
     context.user_data['part_number'] = 3
 
-    keys = [f'question{i+1}' for i in range(7)]
+    keys = [str(i+1) for i in range(7)] + ['4_1', '4_2', '4_3', '5_1', '5_2', '5_3']
+    keys.sort()
+    keys = [f'question{key}' for key in keys]
     for key in keys:
         botAnswerSaver.set_empty_answer(context.user_data, key)
 

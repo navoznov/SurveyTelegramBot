@@ -16,7 +16,13 @@ import botAnswerSaver
 def part_4_question_1_handler(update: Update, context: CallbackContext) -> int:
     context.user_data['part_number'] = 4
 
-    # TODO: а кнопка "свой вариант ответа" где? и как сделать?
+    keys = [str(i+1) for i in range(12)] + ['4_1', '4_2', '8_yes_1', '8_no_1' ]
+    keys.sort()
+    keys = [f'question{key}' for key in keys]
+    for key in keys:
+        botAnswerSaver.set_empty_answer(context.user_data, key)
+
+    # TODO: а кнопка "свой вариант ответа" где? и как сделать? мб просто вариант "Другой"?
     text = 'Какой язык сейчас учите?'
     reply_keyboard = [['Английский', 'Немецкий', 'Нидерландский',
                        'Французский', 'Итальянский', 'Португальский', 'Испанский']]
