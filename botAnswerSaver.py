@@ -53,8 +53,10 @@ def save_user_answers_to_file(user: Optional['User'], user_data: Optional[Dict])
     answers = get_answers(user_data)
     user_answers_obj = {'user_info': user_info, 'answers': answers}
     filename = f'answers/{user.id}.json'
-    if not os.path.exists(answers_directory_name):
-        os.makedirs(os.path.dirname(filename))
+
+    dirname = os.path.dirname(filename)
+    if not os.path.exists(dirname):
+        os.makedirs(dirname)
 
     with open(filename, 'w', encoding='utf-8') as f:
         json_str = json.dumps(user_answers_obj, ensure_ascii=False)
