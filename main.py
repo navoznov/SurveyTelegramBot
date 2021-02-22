@@ -55,59 +55,59 @@ conversation_handler = ConversationHandler(
         ],
         botStates.PART_1_QUESTION_2_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
-            MessageHandler(Filters.text, botHandlers.part_1_question_3_handler),
+            MessageHandler(Filters.text | Filters.voice, botHandlers.part_1_question_3_handler),
         ],
         botStates.PART_1_QUESTION_3_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
-            MessageHandler(Filters.text, botHandlers.part_1_survey_finish_handler),
+            MessageHandler(Filters.text | Filters.voice, botHandlers.part_1_survey_finish_handler),
         ],
         botStates.PART_1_QUESTION_4_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
-            MessageHandler(Filters.text, botHandlers.part_1_survey_finish_handler),
+            MessageHandler(Filters.text | Filters.voice, botHandlers.part_1_survey_finish_handler),
         ],
 
         # РАЗДЕЛ 2
         botStates.PART_2_QUESTION_1_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
-            MessageHandler(Filters.text, botHandlers.part_2_question_2_handler),
+            MessageHandler(Filters.text | Filters.voice, botHandlers.part_2_question_2_handler),
         ],
         botStates.PART_2_QUESTION_2_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
-            MessageHandler(Filters.text, botHandlers.part_2_question_3_handler),
+            MessageHandler(Filters.text | Filters.voice, botHandlers.part_2_question_3_handler),
         ],
         botStates.PART_2_QUESTION_3_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
-            MessageHandler(Filters.text, botHandlers.part_2_question_4_handler),
+            MessageHandler(Filters.text | Filters.voice, botHandlers.part_2_question_4_handler),
         ],
         botStates.PART_2_QUESTION_4_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
-            MessageHandler(Filters.text, botHandlers.part_2_question_5_handler),
+            MessageHandler(Filters.text | Filters.voice, botHandlers.part_2_question_5_handler),
         ],
         botStates.PART_2_QUESTION_5_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
-            MessageHandler(Filters.text, botHandlers.part_2_question_6_handler),
+            MessageHandler(Filters.text | Filters.voice, botHandlers.part_2_question_6_handler),
         ],
         botStates.PART_2_QUESTION_6_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
-            MessageHandler(Filters.text, botHandlers.part_2_question_7_handler),
+            MessageHandler(Filters.text | Filters.voice, botHandlers.part_2_question_7_handler),
         ],
         botStates.PART_2_QUESTION_7_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
-            MessageHandler(Filters.text, botHandlers.part_2_survey_finish_handler),
+            MessageHandler(Filters.text | Filters.voice, botHandlers.part_2_survey_finish_handler),
         ],
 
         # РАЗДЕЛ 3
         botStates.PART_3_QUESTION_1_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
-            MessageHandler(Filters.text, botHandlers.part_3_question_2_handler),
+            MessageHandler(Filters.text | Filters.voice, botHandlers.part_3_question_2_handler),
         ],
         botStates.PART_3_QUESTION_2_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
-            MessageHandler(Filters.text, botHandlers.part_3_question_3_handler),
+            MessageHandler(Filters.text | Filters.voice, botHandlers.part_3_question_3_handler),
         ],
         botStates.PART_3_QUESTION_3_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
-            MessageHandler(Filters.text, botHandlers.part_3_question_4_handler),
+            MessageHandler(Filters.text | Filters.voice, botHandlers.part_3_question_4_handler),
         ],
         botStates.PART_3_QUESTION_4_STATE: [
             MessageHandler(Filters.regex('[Нн]ет'), botHandlers.part_3_question_5_handler),
@@ -116,15 +116,15 @@ conversation_handler = ConversationHandler(
         ],
         botStates.PART_3_QUESTION_4_1_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
-            MessageHandler(Filters.text, botHandlers.part_3_question_4_2_handler),
+            MessageHandler(Filters.text | Filters.voice, botHandlers.part_3_question_4_2_handler),
         ],
         botStates.PART_3_QUESTION_4_2_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
-            MessageHandler(Filters.text, botHandlers.part_3_question_4_3_handler),
+            MessageHandler(Filters.text | Filters.voice, botHandlers.part_3_question_4_3_handler),
         ],
         botStates.PART_3_QUESTION_4_3_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
-            MessageHandler(Filters.text, botHandlers.part_3_question_5_handler),
+            MessageHandler(Filters.text | Filters.voice, botHandlers.part_3_question_5_handler),
         ],
         botStates.PART_3_QUESTION_5_STATE: [
             MessageHandler(Filters.regex('[Нн]ет'), botHandlers.part_3_question_6_handler),
@@ -133,33 +133,33 @@ conversation_handler = ConversationHandler(
         ],
         botStates.PART_3_QUESTION_5_1_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
-            MessageHandler(Filters.text, botHandlers.part_3_question_5_2_handler),
+            MessageHandler(Filters.text | Filters.voice, botHandlers.part_3_question_5_2_handler),
         ],
         botStates.PART_3_QUESTION_5_2_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
-            MessageHandler(Filters.text, botHandlers.part_3_question_5_3_handler),
+            MessageHandler(Filters.text | Filters.voice, botHandlers.part_3_question_5_3_handler),
         ],
         botStates.PART_3_QUESTION_5_3_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
-            MessageHandler(Filters.text, botHandlers.part_3_question_6_handler),
+            MessageHandler(Filters.text | Filters.voice, botHandlers.part_3_question_6_handler),
         ],
         botStates.PART_3_QUESTION_6_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
-            MessageHandler(Filters.text, botHandlers.part_3_survey_finish_handler),
+            MessageHandler(Filters.text | Filters.voice, botHandlers.part_3_survey_finish_handler),
         ],
 
         # РАЗДЕЛ 4
         botStates.PART_4_QUESTION_1_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
-            MessageHandler(Filters.text, botHandlers.part_4_question_2_handler),
+            MessageHandler(Filters.text | Filters.voice, botHandlers.part_4_question_2_handler),
         ],
         botStates.PART_4_QUESTION_2_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
-            MessageHandler(Filters.text, botHandlers.part_4_question_3_handler),
+            MessageHandler(Filters.text | Filters.voice, botHandlers.part_4_question_3_handler),
         ],
         botStates.PART_4_QUESTION_3_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
-            MessageHandler(Filters.text, botHandlers.part_4_question_4_handler),
+            MessageHandler(Filters.text | Filters.voice, botHandlers.part_4_question_4_handler),
         ],
         botStates.PART_4_QUESTION_4_STATE: [
             MessageHandler(Filters.regex('[Нн]ет'), botHandlers.part_4_question_5_handler),
@@ -168,23 +168,23 @@ conversation_handler = ConversationHandler(
         ],
         botStates.PART_4_QUESTION_4_1_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
-            MessageHandler(Filters.text, botHandlers.part_4_question_4_2_handler),
+            MessageHandler(Filters.text | Filters.voice, botHandlers.part_4_question_4_2_handler),
         ],
         botStates.PART_4_QUESTION_4_2_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
-            MessageHandler(Filters.text, botHandlers.part_4_question_5_handler),
+            MessageHandler(Filters.text | Filters.voice, botHandlers.part_4_question_5_handler),
         ],
         botStates.PART_4_QUESTION_5_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
-            MessageHandler(Filters.text, botHandlers.part_4_question_6_handler),
+            MessageHandler(Filters.text | Filters.voice, botHandlers.part_4_question_6_handler),
         ],
         botStates.PART_4_QUESTION_6_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
-            MessageHandler(Filters.text, botHandlers.part_4_question_7_handler),
+            MessageHandler(Filters.text | Filters.voice, botHandlers.part_4_question_7_handler),
         ],
         botStates.PART_4_QUESTION_7_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
-            MessageHandler(Filters.text, botHandlers.part_4_question_8_handler),
+            MessageHandler(Filters.text | Filters.voice, botHandlers.part_4_question_8_handler),
         ],
         botStates.PART_4_QUESTION_8_STATE: [
             MessageHandler(Filters.regex('[Нн]ет'), botHandlers.part_4_question_8_no_1_handler),
@@ -193,27 +193,27 @@ conversation_handler = ConversationHandler(
         ],
         botStates.PART_4_QUESTION_8_NO_1_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
-            MessageHandler(Filters.text, botHandlers.part_4_question_9_handler),
+            MessageHandler(Filters.text | Filters.voice, botHandlers.part_4_question_9_handler),
         ],
         botStates.PART_4_QUESTION_8_YES_1_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
-            MessageHandler(Filters.text, botHandlers.part_4_question_9_handler),
+            MessageHandler(Filters.text | Filters.voice, botHandlers.part_4_question_9_handler),
         ],
         botStates.PART_4_QUESTION_9_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
-            MessageHandler(Filters.text, botHandlers.part_4_question_10_handler),
+            MessageHandler(Filters.text | Filters.voice, botHandlers.part_4_question_10_handler),
         ],
         botStates.PART_4_QUESTION_10_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
-            MessageHandler(Filters.text, botHandlers.part_4_question_11_handler),
+            MessageHandler(Filters.text | Filters.voice, botHandlers.part_4_question_11_handler),
         ],
         botStates.PART_4_QUESTION_11_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
-            MessageHandler(Filters.text, botHandlers.part_4_question_12_handler),
+            MessageHandler(Filters.text | Filters.voice, botHandlers.part_4_question_12_handler),
         ],
         botStates.PART_4_QUESTION_12_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
-            MessageHandler(Filters.text, botHandlers.survey_finish_handler),
+            MessageHandler(Filters.text | Filters.voice, botHandlers.survey_finish_handler),
         ],
 
         # ОКОНЧАНИЕ
@@ -224,11 +224,11 @@ conversation_handler = ConversationHandler(
         ],
         botStates.PLANS_INFO_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
-            MessageHandler(Filters.text, botHandlers.total_finish_handler),
+            MessageHandler(Filters.text | Filters.voice, botHandlers.total_finish_handler),
         ],
         botStates.TOTAL_FINISH_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
-            MessageHandler(Filters.text, botHandlers.total_finish_handler),
+            MessageHandler(Filters.text | Filters.voice, botHandlers.total_finish_handler),
         ],
     },
     fallbacks=[CommandHandler('cancel', cancel)],
