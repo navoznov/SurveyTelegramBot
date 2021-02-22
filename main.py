@@ -145,7 +145,7 @@ conversation_handler = ConversationHandler(
         ],
         botStates.PART_3_QUESTION_6_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
-            MessageHandler(Filters.text, botHandlers.survey_finish_handler),
+            MessageHandler(Filters.text, botHandlers.part_3_survey_finish_handler),
         ],
 
         # РАЗДЕЛ 4
