@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 START_STATE, QUESTION_1_STATE, QUESTION_2_STATE, FORK_STATE = range(4)
