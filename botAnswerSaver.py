@@ -2,18 +2,28 @@
 # -*- coding: utf-8 -*-
 
 from telegram import Message
+from telegram.ext import CallbackContext
 from typing import Dict, Optional
 import json
 import os
 
-def save_answer(message: Message, user_data: Optional[Dict], question_id: str) -> None:
+def save_answer(message: Message, context: CallbackContext, question_id: str) -> None:
     if not message.voice is None:
+        file_id = message.voice.file_id
+        # TODO: загружать файлы в конце, а то вдруг юзер не закончит опрос
+        voice_file = context.bot.get_file(file_id)
+        filename = f'answers/voices/{file_id}.ogg'
+        dirname = os.path.dirname(filename)
+        if not os.path.exists(dirname):
+            os.makedirs(dirname)
+
+        voice_file.download(filename)
+
         VOICE_METADATA_SEPARATOR = '***'
-        print(message.voice.mime_type)
-        metadata = [message.voice.mime_type, message.voice.file_id]
-        user_data[question_id] = VOICE_METADATA_SEPARATOR.join(metadata)
+        metadata = ['voice', message.voice.mime_type, filename]
+        context.user_data[question_id] = VOICE_METADATA_SEPARATOR.join(metadata)
     else:
-        user_data[question_id] = message.text
+        context.user_data[question_id] = message.text
 
 
 def set_empty_answer(user_data: Optional[Dict], question_id: str) -> None:
