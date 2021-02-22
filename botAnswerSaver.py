@@ -31,13 +31,13 @@ def save_user_answers_to_file(user: Optional['User'], user_data: Optional[Dict])
 
     def get_answers(user_data):
         answers = {}
-        answers['s1'] = user_data['s1']
-        answers['s2'] = user_data['s2']
-        answers['part'] = user_data['part']
+        answers['start1'] = user_data['start1']
+        answers['start2'] = user_data['start2']
+        answers['part_number'] = user_data['part_number']
 
         index = 1
         while(True):
-            key = str(index)
+            key = f'question{index}'
             answer = user_data.get(key, None)
             if answer is None:
                 break
@@ -45,7 +45,7 @@ def save_user_answers_to_file(user: Optional['User'], user_data: Optional[Dict])
             answers[key] = answer
             index += 1
 
-        answers['f1'] = user_data['f1']
+        answers['final1'] = user_data['final1']
         return answers
 
     user_info = get_user_info(user)

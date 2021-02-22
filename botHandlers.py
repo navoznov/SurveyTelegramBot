@@ -46,9 +46,9 @@ def plans_info_handler(update: Update, context: CallbackContext) -> int:
 
 def total_finish_handler(update: Update, context: CallbackContext) -> int:
     if context.user_data['state'] == botStates.PLANS_INFO_STATE:
-        botAnswerSaver.save_answer(update.message, context.user_data, 'f1')
+        botAnswerSaver.save_answer(update.message, context.user_data, 'final1')
     else:
-        botAnswerSaver.set_empty_answer(context.user_data, 'f1')
+        botAnswerSaver.set_empty_answer(context.user_data, 'final1')
 
     botAnswerSaver.save_user_answers_to_file(update.effective_user, context.user_data)
 
@@ -78,7 +78,7 @@ def question_2_handler(update: Update, context: CallbackContext) -> int:
         return botStates.QUESTION_1_STATE
 
     context.user_data['language_count'] = language_count
-    context.user_data['s1'] = language_count
+    context.user_data['start1'] = language_count
 
     text = botMessageProvider.get_question_2_state_text()
     reply_keyboard = [['Нет, не изучаю', 'Да, изучаю']]
@@ -95,7 +95,7 @@ def fork_handler(update: Update, context: CallbackContext) -> int:
     YES = 'да'
     answer = update.message.text.lower()
     if NO in answer:
-        user_data['s2'] = NO
+        user_data['start2'] = NO
 
         if language_count == 1:
             # Раздел 1
@@ -104,7 +104,7 @@ def fork_handler(update: Update, context: CallbackContext) -> int:
             # Раздел 3
             return part_3_question_1_handler(update, context)
     elif YES in answer:
-        user_data['s2'] = YES
+        user_data['start2'] = YES
 
         if language_count == 1:
             # Раздел 2
@@ -117,7 +117,7 @@ def fork_handler(update: Update, context: CallbackContext) -> int:
 
 # РАЗДЕЛ 1
 def part_1_question_1_handler(update: Update, context: CallbackContext) -> int:
-    context.user_data['part'] = 1
+    context.user_data['part_number'] = 1
 
     text = botMessageProvider.get_part_1_question_1_state_text()
     reply_keyboard = [['Да', 'Нет']]
@@ -146,7 +146,7 @@ def part_1_end_handler(update: Update, context: CallbackContext) -> int:
 
 # РАЗДЕЛ 2
 def part_2_question_1_handler(update: Update, context: CallbackContext) -> int:
-    context.user_data['part'] = 2
+    context.user_data['part_number'] = 2
 
     text = '*Для чего* учите новый язык?'
     update.message.reply_text(text, parse_mode='Markdown')
@@ -154,7 +154,7 @@ def part_2_question_1_handler(update: Update, context: CallbackContext) -> int:
 
 
 def part_2_question_2_handler(update: Update, context: CallbackContext) -> int:
-    botAnswerSaver.save_answer(update.message, context.user_data, '1')
+    botAnswerSaver.save_answer(update.message, context.user_data, 'question1')
 
     text = 'Как *ищете перевод* иностранного слова?'
     update.message.reply_text(text, parse_mode='Markdown')
@@ -162,7 +162,7 @@ def part_2_question_2_handler(update: Update, context: CallbackContext) -> int:
 
 
 def part_2_question_3_handler(update: Update, context: CallbackContext) -> int:
-    botAnswerSaver.save_answer(update.message, context.user_data, '2')
+    botAnswerSaver.save_answer(update.message, context.user_data, 'question2')
 
     text = 'Какие *инструменты* используете для запоминания новых слов?'
     update.message.reply_text(text, parse_mode='Markdown')
@@ -170,7 +170,7 @@ def part_2_question_3_handler(update: Update, context: CallbackContext) -> int:
 
 
 def part_2_question_4_handler(update: Update, context: CallbackContext) -> int:
-    botAnswerSaver.save_answer(update.message, context.user_data, '3')
+    botAnswerSaver.save_answer(update.message, context.user_data, 'question3')
 
     text = 'Бывают *проблемы с поиском* правильного смысла перевода?'
     update.message.reply_text(text, parse_mode='Markdown')
@@ -178,7 +178,7 @@ def part_2_question_4_handler(update: Update, context: CallbackContext) -> int:
 
 
 def part_2_question_5_handler(update: Update, context: CallbackContext) -> int:
-    botAnswerSaver.save_answer(update.message, context.user_data, '4')
+    botAnswerSaver.save_answer(update.message, context.user_data, 'question4')
 
     text = 'Насколько вам важна *эффективность* процесса изучения языка?'
     update.message.reply_text(text, parse_mode='Markdown')
@@ -186,7 +186,7 @@ def part_2_question_5_handler(update: Update, context: CallbackContext) -> int:
 
 
 def part_2_question_6_handler(update: Update, context: CallbackContext) -> int:
-    botAnswerSaver.save_answer(update.message, context.user_data, '5')
+    botAnswerSaver.save_answer(update.message, context.user_data, 'question5')
 
     text = 'Как отслеживаете свой *текущий прогресс* в изучении нового языка?'
     update.message.reply_text(text, parse_mode='Markdown')
@@ -194,7 +194,7 @@ def part_2_question_6_handler(update: Update, context: CallbackContext) -> int:
 
 
 def part_2_question_7_handler(update: Update, context: CallbackContext) -> int:
-    botAnswerSaver.save_answer(update.message, context.user_data, '6')
+    botAnswerSaver.save_answer(update.message, context.user_data, 'question6')
 
     text = 'Что вас *мотивирует* изучать новый язык?'
     update.message.reply_text(text, parse_mode='Markdown')
@@ -202,7 +202,7 @@ def part_2_question_7_handler(update: Update, context: CallbackContext) -> int:
 
 
 def part_2_survey_finish_handler(update: Update, context: CallbackContext) -> int:
-    botAnswerSaver.save_answer(update.message, context.user_data, '7')
+    botAnswerSaver.save_answer(update.message, context.user_data, 'question7')
 
     text = botMessageProvider.get_survey_finish_state_text()
     reply_keyboard = [['Да', 'Нет']]
@@ -213,7 +213,7 @@ def part_2_survey_finish_handler(update: Update, context: CallbackContext) -> in
 
 # РАЗДЕЛ 3
 def part_3_question_1_handler(update: Update, context: CallbackContext) -> int:
-    context.user_data['part'] = 3
+    context.user_data['part_number'] = 3
 
     text = 'Какие инструменты использовали для запоминания новых слов?'
     update.message.reply_text(text)
@@ -292,7 +292,7 @@ def part_3_question_6_handler(update: Update, context: CallbackContext) -> int:
 
 # РАЗДЕЛ 4
 def part_4_question_1_handler(update: Update, context: CallbackContext) -> int:
-    context.user_data['part'] = 4
+    context.user_data['part_number'] = 4
 
     # TODO: а кнопка "свой вариант ответа" где? и как сделать?
     text = 'Какой язык сейчас учите?'
