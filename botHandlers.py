@@ -315,9 +315,9 @@ def part_3_question_4_3_handler(update: Update, context: CallbackContext) -> int
 
 def part_3_question_5_handler(update: Update, context: CallbackContext) -> int:
     message = _get_message(update)
-    if context.user_data['state'] = botStates.PART_3_QUESTION_4_3_STATE:
+    if context.user_data['state'] == botStates.PART_3_QUESTION_4_3_STATE:
         botAnswerSaver.save_answer(message, context.user_data, 'question4_3')
-    elif context.user_data['state'] = botStates.PART_3_QUESTION_4_STATE:
+    elif context.user_data['state'] == botStates.PART_3_QUESTION_4_STATE:
         botAnswerSaver.save_answer(message, context.user_data, 'question4')
 
     text = 'Планируете изучать новый язык?'
@@ -355,9 +355,9 @@ def part_3_question_5_3_handler(update: Update, context: CallbackContext) -> int
 
 def part_3_question_6_handler(update: Update, context: CallbackContext) -> int:
     message = _get_message(update)
-    if context.user_data['state'] = botStates.PART_3_QUESTION_5_3_STATE:
+    if context.user_data['state'] == botStates.PART_3_QUESTION_5_3_STATE:
         botAnswerSaver.save_answer(message, context.user_data, 'question5_3')
-    elif context.user_data['state'] = botStates.PART_3_QUESTION_5_STATE:
+    elif context.user_data['state'] == botStates.PART_3_QUESTION_5_STATE:
         botAnswerSaver.save_answer(message, context.user_data, 'question5')
 
     text = 'Какой мотивации не хватает чтобы начать изучать новый язык?'
