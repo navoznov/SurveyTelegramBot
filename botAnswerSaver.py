@@ -10,7 +10,8 @@ def save_answer(message: Message, user_data: Optional[Dict], question_id: str) -
     if not message.voice is None:
         VOICE_METADATA_SEPARATOR = '***'
         print(message.voice.mime_type)
-        user_data[question_id] = [message.voice.mime_type, message.voice.file_id].join(VOICE_METADATA_SEPARATOR)
+        metadata = [message.voice.mime_type, message.voice.file_id]
+        user_data[question_id] = VOICE_METADATA_SEPARATOR.join(metadata)
     else:
         user_data[question_id] = message.text
 
