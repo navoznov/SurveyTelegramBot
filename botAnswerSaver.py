@@ -1,5 +1,6 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+
 from telegram import Message
 from typing import Dict, Optional
 import json
@@ -31,9 +32,7 @@ def save_user_answers_to_file(user: Optional['User'], user_data: Optional[Dict])
     def get_answers(user_data):
         answers = {}
         answers['s1'] = user_data['s1']
-
         answers['s2'] = user_data['s2']
-
         answers['part'] = user_data['part']
 
         index = 1
@@ -54,5 +53,5 @@ def save_user_answers_to_file(user: Optional['User'], user_data: Optional[Dict])
     user_answers_obj = {'user_info': user_info, 'answers': answers}
     filename = f'answers/{user.id}.json'
     with open(filename, 'w', encoding='utf-8') as f:
-        json_str = json.dumps(user_answers_obj)
+        json_str = json.dumps(user_answers_obj, ensure_ascii=False)
         f.write(json_str)
