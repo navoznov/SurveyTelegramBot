@@ -119,6 +119,11 @@ def fork_handler(update: Update, context: CallbackContext) -> int:
 def part_1_question_1_handler(update: Update, context: CallbackContext) -> int:
     context.user_data['part_number'] = 1
 
+    keys = [f'question{i+1}' for i in range(4)]
+    for key in keys:
+        botAnsweSaver.set_empty_answer(context.user_data, key)
+
+
     text = botMessageProvider.get_part_1_question_1_state_text()
     reply_keyboard = [['Да', 'Нет']]
     keyboard_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
@@ -156,10 +161,7 @@ def part_1_question_4_handler(update: Update, context: CallbackContext) -> int:
 def part_1_survey_finish_handler(update: Update, context: CallbackContext) -> int:
     if context.user_data['state'] == botStates.PART_1_QUESTION_3_STATE:
         botAnswerSaver.save_answer(update.message, context.user_data, 'question3')
-        botAnswerSaver.set_empty_answer(context.user_data, 'question4')
     else:
-        botAnswerSaver.set_empty_answer(context.user_data, 'question2')
-        botAnswerSaver.set_empty_answer(context.user_data, 'question3')
         botAnswerSaver.save_answer(update.message, context.user_data, 'question4')
 
     text = botMessageProvider.get_survey_finish_state_text()
@@ -173,6 +175,10 @@ def part_1_survey_finish_handler(update: Update, context: CallbackContext) -> in
 # РАЗДЕЛ 2
 def part_2_question_1_handler(update: Update, context: CallbackContext) -> int:
     context.user_data['part_number'] = 2
+
+    keys = [f'question{i+1}' for i in range(7)]
+    for key in keys:
+        botAnsweSaver.set_empty_answer(context.user_data, key)
 
     text = '*Для чего* учите новый язык?'
     update.message.reply_text(text, parse_mode='Markdown')
