@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 import logging
 from options import Options
 from optionsParser import OptionsParser
@@ -90,7 +93,7 @@ conversation_handler = ConversationHandler(
         ],
         botStates.PART_2_QUESTION_7_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
-            MessageHandler(Filters.text, botHandlers.survey_finish_handler),
+            MessageHandler(Filters.text, botHandlers.part_2_survey_finish_handler),
         ],
 
         # РАЗДЕЛ 3
@@ -227,7 +230,6 @@ conversation_handler = ConversationHandler(
             CommandHandler('start', botHandlers.start_state_handler),
             MessageHandler(Filters.text, botHandlers.total_finish_handler),
         ],
-
     },
     fallbacks=[CommandHandler('cancel', cancel)],
 
