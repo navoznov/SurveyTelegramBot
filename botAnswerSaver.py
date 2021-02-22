@@ -6,6 +6,7 @@ from telegram.ext import CallbackContext
 from typing import Dict, Optional
 import json
 import os
+from datetime import datetime
 
 def save_answer(message: Message, context: CallbackContext, question_id: str) -> None:
     if not message.voice is None:
@@ -52,7 +53,8 @@ def save_user_answers_to_file(user: Optional['User'], user_data: Optional[Dict])
 
     user_info = get_user_info(user)
     answers = get_answers(user_data)
-    user_answers_obj = {'user_info': user_info, 'answers': answers}
+    answer_date = datetime.utcnow().replace(microsecond=0).isoformat()
+    user_answers_obj = {'answer_date': answer_date, 'user_info': user_info, 'answers': answers}
     filename = f'answers/{user.id}.json'
 
     dirname = os.path.dirname(filename)
