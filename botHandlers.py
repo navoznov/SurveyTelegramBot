@@ -123,25 +123,51 @@ def part_1_question_1_handler(update: Update, context: CallbackContext) -> int:
     reply_keyboard = [['Да', 'Нет']]
     keyboard_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
     update.message.reply_text(text, reply_markup=keyboard_markup)
+    context.user_data['state'] = botStates.PART_1_QUESTION_1_STATE
     return botStates.PART_1_QUESTION_1_STATE
 
 
 def part_1_question_2_handler(update: Update, context: CallbackContext) -> int:
+    botAnswerSaver.save_answer(update.message, context.user_data, 'question1')
+
     text = 'Где *ищете перевод* иностранного слова?'
     update.message.reply_text(text, parse_mode='Markdown')
     return botStates.PART_1_QUESTION_2_STATE
 
 
 def part_1_question_3_handler(update: Update, context: CallbackContext) -> int:
+    botAnswerSaver.save_answer(update.message, context.user_data, 'question2')
+
     text = 'Бывает так что правильное значение не найти сразу? Как убеждаетесь в правильном смысле?'
     update.message.reply_text(text)
+    context.user_data['state'] = botStates.PART_1_QUESTION_3_STATE
     return botStates.PART_1_QUESTION_3_STATE
 
 
-def part_1_end_handler(update: Update, context: CallbackContext) -> int:
+def part_1_question_4_handler(update: Update, context: CallbackContext) -> int:
+    botAnswerSaver.save_answer(update.message, context.user_data, 'question1')
+
     text = 'Эх, тогда вопросов больше нет :) Расскажите вообще что думаете про изучение иностранных языков?'
     update.message.reply_text(text)
-    return botStates.PART_1_END_STATE
+    context.user_data['state'] = botStates.PART_1_QUESTION_4_STATE
+    return botStates.PART_1_QUESTION_4_STATE
+
+
+def part_1_survey_finish_handler(update: Update, context: CallbackContext) -> int:
+    if context.user_data['state'] == botStates.PART_1_QUESTION_3_STATE:
+        botAnswerSaver.save_answer(update.message, context.user_data, 'question3')
+        botAnswerSaver.set_empty_answer(context.user_data, 'question4')
+    else:
+        botAnswerSaver.set_empty_answer(context.user_data, 'question2')
+        botAnswerSaver.set_empty_answer(context.user_data, 'question3')
+        botAnswerSaver.save_answer(update.message, context.user_data, 'question4')
+
+    text = botMessageProvider.get_survey_finish_state_text()
+    reply_keyboard = [['Да', 'Нет']]
+    keyboard_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
+    update.message.reply_text(text, reply_markup=keyboard_markup)
+    context.user_data['state'] = botStates.SURVEY_FINISH_STATE
+    return botStates.SURVEY_FINISH_STATE
 
 
 # РАЗДЕЛ 2

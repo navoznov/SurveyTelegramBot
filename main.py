@@ -49,7 +49,7 @@ conversation_handler = ConversationHandler(
 
         # РАЗДЕЛ 1
         botStates.PART_1_QUESTION_1_STATE: [
-            MessageHandler(Filters.regex('[Нн]ет'), botHandlers.part_1_end_handler),
+            MessageHandler(Filters.regex('[Нн]ет'), botHandlers.part_1_question_4_handler),
             MessageHandler(Filters.regex('[Дд]а'), botHandlers.part_1_question_2_handler),
             CommandHandler('start', botHandlers.start_state_handler),
         ],
@@ -59,11 +59,11 @@ conversation_handler = ConversationHandler(
         ],
         botStates.PART_1_QUESTION_3_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
-            MessageHandler(Filters.text, botHandlers.survey_finish_handler),
+            MessageHandler(Filters.text, botHandlers.part_1_survey_finish_handler),
         ],
-        botStates.PART_1_END_STATE: [
+        botStates.PART_1_QUESTION_4_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
-            MessageHandler(Filters.text, botHandlers.survey_finish_handler),
+            MessageHandler(Filters.text, botHandlers.part_1_survey_finish_handler),
         ],
 
         # РАЗДЕЛ 2
