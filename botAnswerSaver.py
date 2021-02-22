@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 from telegram import Message
 from typing import Dict, Optional
 import json

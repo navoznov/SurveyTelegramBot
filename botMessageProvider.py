@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 def get_start_state_text():
     return '''Здравствуйте!
 
