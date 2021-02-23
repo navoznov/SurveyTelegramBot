@@ -11,7 +11,7 @@ from telegram.ext import (
 import shutil, os
 
 from options import Options
-import botMessageProvider, botStates, helpers, botAnswerSaver
+import botMessageProvider, botStates, helpers, answerHelper
 import botPart1Handlers, botPart2Handlers, botPart3Handlers, botPart4Handlers
 import export
 
@@ -47,11 +47,11 @@ def plans_info_handler(update: Update, context: CallbackContext) -> int:
 
 def total_finish_handler(update: Update, context: CallbackContext) -> int:
     if context.user_data['state'] == botStates.PLANS_INFO_STATE:
-        botAnswerSaver.save_answer(update.message, context, 'final1')
+        answerHelper.save_answer(update.message, context, 'final1')
     else:
-        botAnswerSaver.set_empty_answer(context.user_data, 'final1')
+        answerHelper.set_empty_answer(context.user_data, 'final1')
 
-    botAnswerSaver.save_user_answers_to_file(update.effective_user, context.user_data)
+    answerHelper.save_user_answers_to_file(update.effective_user, context.user_data)
 
     text = 'Теперь точно всё :) Спасибо и до скорых встреч!'
     helpers.get_message(update).reply_text(text, reply_markup=ReplyKeyboardRemove())
@@ -136,7 +136,7 @@ def admin_get_answers_list_handler(update: Update, context: CallbackContext) -> 
     user = message.from_user
     logger.info(f'@{user.username} listed usernames')
 
-    usernames = botAnswerSaver.get_all_answer_usernames()
+    usernames = answerHelper.get_all_answer_usernames()
     text = '\n'.join([f'@{x}' for x in usernames])
     reply_keyboard = [['Вернуться в главное меню админки']]
     keyboard_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
