@@ -14,7 +14,7 @@ import botStates
 import helpers
 import botAnswerSaver
 import botPart1Handlers, botPart2Handlers, botPart3Handlers, botPart4Handlers
-import admin
+import export
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -123,7 +123,7 @@ def export_state_handler(update: Update, context: CallbackContext, admin_ids) ->
     user = helpers.get_message(update).from_user
     logger.info(f'Export attempt @{user.username}')
     if user.id in admin_ids:
-        admin.Export().export_to_html(user.id)
+        export.Export().export_to_html(user.id)
 
     return botStates.START_STATE
 
