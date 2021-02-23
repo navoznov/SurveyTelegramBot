@@ -21,6 +21,8 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 logger = logging.getLogger(__name__)
 
 options = OptionsParser.parse()
+#TODO: обработка --help_mode
+
 updater = Updater(options.telegram_bot_token)
 dispatcher = updater.dispatcher
 
