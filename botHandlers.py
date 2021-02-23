@@ -149,7 +149,7 @@ def admin_export_state_handler(update: Update, context: CallbackContext) -> int:
     user = message.from_user
     logger.info(f'@{user.username} exported survey results')
 
-    export_dir_path = export.Export().export_to_html(user.id)
+    export_dir_path = export.Export().export_to_html(user.id, should_remove_original_files=false)
     export_dir_path = os.path.normpath(export_dir_path)
     archive_file_name = os.path.split(export_dir_path)[-1]
     zip_file = shutil.make_archive(archive_file_name, 'zip', root_dir=export_dir_path, base_dir='.',)

@@ -7,7 +7,8 @@ from shutil import copyfile
 from botAnswerSaver import get_all_answer_files
 
 class Export:
-    def export_to_html(self, admin_id):
+    def export_to_html(self, admin_id, should_remove_original_files: bool = false) -> str:
+        # TODO: использовать аргумент should_remove_original_files
         date_foramat = '%Y.%m.%d %H-%M-%S'
         self.__current_export_dir_name = datetime.datetime.utcnow().strftime(date_foramat)
         export_dir_path = f'./export/{self.__current_export_dir_name}'
