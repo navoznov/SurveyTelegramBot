@@ -4,21 +4,24 @@
 from telegram import Message
 from telegram.ext import CallbackContext
 from typing import Dict, Optional
-import json
-import os
+import json, os
 from datetime import datetime
+import helpers
 
 def save_answer(message: Message, context: CallbackContext, question_id: str) -> None:
     if not message.voice is None:
         file_id = message.voice.file_id
-        # TODO: загружать файлы в конце, а то вдруг юзер не закончит опрос
-        voice_file = context.bot.get_file(file_id)
-        filename = f'answers/voices/{file_id}.ogg'
-        dirname = os.path.dirname(filename)
-        if not os.path.exists(dirname):
-            os.makedirs(dirname)
+        user_id = message.from_user.id
+        filename = f'{user_id}/{file_id}.ogg'
+        # TODO: вынести voices_dir_path в глобальную константу
+        voices_dir_path ='answers/voices'
+        file_path = os.path.join(voices_dir_path, filename)
+        dir_path = os.path.dirname(file_path)
+        helpers.check_dir_exists(dir_path)
 
-        voice_file.download(filename)
+        voice_file = context.bot.get_file(file_id)
+        # TODO: загружать файлы в конце, а то вдруг юзер не закончит опрос
+        voice_file.download(file_path)
 
         VOICE_METADATA_SEPARATOR = '***'
         metadata = ['voice', message.voice.mime_type, filename]
