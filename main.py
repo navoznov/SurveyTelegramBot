@@ -16,7 +16,7 @@ from telegram.ext import (
 )
 from telegram.utils.helpers import escape_markdown
 import botStates, botHandlers, botPart1Handlers, botPart2Handlers, botPart3Handlers, botPart4Handlers
-
+import admin
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -26,13 +26,21 @@ updater = Updater(options.telegram_bot_token)
 dispatcher = updater.dispatcher
 
 
+admin.export_to_html(123)
+
+
+def export_state_handler(update: Update, context: CallbackContext) -> int:
+    return botHandlers.export_state_handler(update, context, options.admin_ids)
+
 conversation_handler = ConversationHandler(
     entry_points=[
         CommandHandler('start', botHandlers.start_state_handler),
+        CommandHandler('export', export_state_handler),
     ],
     states={
         botStates.START_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
+            CommandHandler('export', export_state_handler),
             MessageHandler(Filters.regex('Начнем'), botHandlers.question_1_handler),
         ],
         botStates.QUESTION_1_STATE: [

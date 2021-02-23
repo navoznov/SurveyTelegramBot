@@ -8,11 +8,13 @@ from telegram.ext import (
     CallbackContext,
     ConversationHandler
 )
+from options import Options
 import botMessageProvider
 import botStates
 import helpers
 import botAnswerSaver
 import botPart1Handlers, botPart2Handlers, botPart3Handlers, botPart4Handlers
+import admin
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -115,6 +117,16 @@ def fork_handler(update: Update, context: CallbackContext) -> int:
             return botPart4Handlers.part_4_question_1_handler(update, context)
     else:
         return botStates.QUESTION_2_STATE
+
+
+def export_state_handler(update: Update, context: CallbackContext, admin_ids) -> int:
+    user = helpers.get_message(update).from_user
+    logger.info(f'Export attempt @{user.username}')
+    if user.id not in admin_ids:
+        return botStates.START_STATE
+
+    admin.export_to_html(user.id)
+
 
 def cancel(update: Update, context: CallbackContext) -> int:
     pass

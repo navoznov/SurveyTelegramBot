@@ -10,9 +10,9 @@ class OptionsParser:
     @staticmethod
     def parse():
         try:
-            longopts = ["bot-token="]
+            longopts = ['bot-token=', 'admin-ids=', 'help']
             argv = sys.argv[1:]
-            opts, args = getopt.getopt(argv, "t", longopts)
+            opts, args = getopt.getopt(argv, 't:a:h', longopts)
             args = {}
             for a, v in opts:
                 aa = a.replace('--', '')
@@ -20,5 +20,8 @@ class OptionsParser:
         except getopt.GetoptError as e:
             sys.exit(2)
 
-        options = Options(args["bot-token"])
+        telegram_bot_token = args.get('bot-token', None)
+        admin_ids = [] if args.get('admin-ids', None) == None else [int(x.strip()) for x in args['admin-ids'].split(',')]
+        is_help_mode = args.get('help', False)
+        options = Options(telegram_bot_token, admin_ids, is_help_mode)
         return options
