@@ -17,6 +17,7 @@ from telegram.ext import (
 from telegram.utils.helpers import escape_markdown
 import botStates, botHandlers, botPart1Handlers, botPart2Handlers, botPart3Handlers, botPart4Handlers
 
+
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -24,11 +25,11 @@ options = OptionsParser.parse()
 updater = Updater(options.telegram_bot_token)
 dispatcher = updater.dispatcher
 
-def cancel(update: Update, context: CallbackContext) -> int:
-    pass
 
 conversation_handler = ConversationHandler(
-    entry_points=[CommandHandler('start', botHandlers.start_state_handler)],
+    entry_points=[
+        CommandHandler('start', botHandlers.start_state_handler),
+    ],
     states={
         botStates.START_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
@@ -231,8 +232,7 @@ conversation_handler = ConversationHandler(
             MessageHandler(Filters.text | Filters.voice, botHandlers.total_finish_handler),
         ],
     },
-    fallbacks=[CommandHandler('cancel', cancel)],
-
+    fallbacks=[CommandHandler('cancel', botHandlers.cancel)],
 )
 
 dispatcher.add_handler(conversation_handler)

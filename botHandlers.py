@@ -12,7 +12,7 @@ import botMessageProvider
 import botStates
 import helpers
 import botAnswerSaver
-import botPart1Handlers, botPart2Handlers, botPart3Handlers
+import botPart1Handlers, botPart2Handlers, botPart3Handlers, botPart4Handlers
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -112,6 +112,10 @@ def fork_handler(update: Update, context: CallbackContext) -> int:
             return botPart2Handlers.part_2_question_1_handler(update, context)
         else:
             # Раздел 4
-            return part_4_question_1_handler(update, context)
+            return botPart4Handlers.part_4_question_1_handler(update, context)
     else:
         return botStates.QUESTION_2_STATE
+
+def cancel(update: Update, context: CallbackContext) -> int:
+    pass
+
