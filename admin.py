@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os, json, datetime
+import helpers
 
 
 def export_to_html(admin_id):
@@ -9,9 +10,9 @@ def export_to_html(admin_id):
     date_str = datetime.datetime.utcnow().strftime(date_foramat)
     export_dirpath = f'./export/{date_str}'
     dirname = os.path.dirname(export_dirpath)
-    _check_dir_exists(dirname)
+    helpers.check_dir_exists(dirname)
     export_voices_dirpath = os.path.join(export_dirpath, 'voices')
-    _check_dir_exists(export_voices_dirpath)
+    helpers.check_dir_exists(export_voices_dirpath)
 
     files = _get_all_answer_files()
     joined_json_by_part = _join_json_files_by_part(files)
@@ -27,11 +28,9 @@ def export_to_html(admin_id):
 
 def _get_all_answer_files():
     dir_path = 'answers'
-    if not os.path.exists(dir_path):
-        os.makedirs(dir_path)
+    helpers.check_dir_exists(dir_path)
     # filename = f'answers/{user.id}.json'
     files = [os.path.join(dir_path, f) for f in os.listdir(dir_path) if os.path.isfile(os.path.join(dir_path, f))]
-    # _, _, filenames = next(os.walk(dir_path))
     return files
 
 
@@ -110,9 +109,5 @@ def _get_answer_html(answer: str) -> str:
 def _wrap_with_tag(str: str, tag: str, attributes_str: str = '') -> str:
     return f'<{tag} {attributes_str}>{str}</{tag}>'
 
-
-def _check_dir_exists(dir_path) -> None:
-    if not os.path.exists(dir_path):
-        os.makedirs(dir_path)
 
 
