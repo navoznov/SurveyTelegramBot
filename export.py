@@ -24,6 +24,7 @@ class Export:
             html = self.__generate_html(user_answers)
             file_name = f'part {part_number}.html'
             file_path = os.path.join(export_dir_path, file_name)
+            # TODO: pretty html
             open(file_path, 'w', encoding='utf-8').write(html)
 
         return export_dir_path
