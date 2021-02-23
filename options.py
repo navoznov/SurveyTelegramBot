@@ -6,3 +6,4 @@ class Options:
         self.telegram_bot_token = telegram_bot_token
         self.admin_ids = admin_ids
         self.is_help_mode = is_help_mode
+        # TODO: опция "не выгружать html по разделу если в нем нет ответов"
