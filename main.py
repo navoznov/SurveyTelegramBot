@@ -236,6 +236,7 @@ conversation_handler = ConversationHandler(
 
         # АДМИН
         botStates.ADMIN_STATE: [
+            CommandHandler('start', botHandlers.start_state_handler),
             CommandHandler('list', botHandlers.admin_get_answers_list_handler),
             CommandHandler('export', botHandlers.admin_export_state_handler),
             MessageHandler(Filters.regex('Получить список проголосовавших'), botHandlers.admin_get_answers_list_handler),
