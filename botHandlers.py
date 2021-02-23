@@ -125,7 +125,7 @@ def admin_state_handler(update: Update, context: CallbackContext, admin_ids) -> 
         return botStates.START_STATE
 
     text = 'Вы вошли в админку.'
-    reply_keyboard = [['Получить список проголосовавших', 'Экспорт результатов в HTML']]
+    reply_keyboard = [['Получить список проголосовавших'], ['Экспорт результатов в HTML']]
     keyboard_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
     helpers.get_message(update).reply_text(text, reply_markup=keyboard_markup)
     return botStates.ADMIN_STATE
