@@ -24,18 +24,17 @@ options = OptionsParser.parse()
 updater = Updater(options.telegram_bot_token)
 dispatcher = updater.dispatcher
 
-def export_state_handler(update: Update, context: CallbackContext) -> int:
-    return botHandlers.export_state_handler(update, context, options.admin_ids)
+def admin_state_handler(update: Update, context: CallbackContext) -> int:
+    return botHandlers.admin_state_handler(update, context, options.admin_ids)
 
 conversation_handler = ConversationHandler(
     entry_points=[
         CommandHandler('start', botHandlers.start_state_handler),
-        CommandHandler('export', export_state_handler),
     ],
     states={
         botStates.START_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
-            CommandHandler('export', export_state_handler),
+            CommandHandler('admin', admin_state_handler),
             MessageHandler(Filters.regex('Начнем'), botHandlers.question_1_handler),
         ],
         botStates.QUESTION_1_STATE: [
@@ -233,6 +232,20 @@ conversation_handler = ConversationHandler(
         botStates.TOTAL_FINISH_STATE: [
             CommandHandler('start', botHandlers.start_state_handler),
             MessageHandler(Filters.text | Filters.voice, botHandlers.total_finish_handler),
+        ],
+
+        # АДМИН
+        botStates.ADMIN_STATE: [
+            CommandHandler('list', botHandlers.admin_get_answers_list_handler),
+            CommandHandler('export', botHandlers.admin_export_state_handler),
+            MessageHandler(Filters.regex('Получить список проголосовавших'), botHandlers.admin_get_answers_list_handler),
+            MessageHandler(Filters.regex('Экспорт результатов в HTML'), botHandlers.admin_export_state_handler),
+        ],
+        botStates.ADMIN_EXPORT_RESULT_STATE: [
+            MessageHandler(Filters.regex('Вернуться в главное меню админки'), admin_state_handler),
+        ],
+        botStates.ADMIN_USERNAME_LIST_STATE: [
+            MessageHandler(Filters.regex('Вернуться в главное меню админки'), admin_state_handler),
         ],
     },
     fallbacks=[CommandHandler('cancel', botHandlers.cancel)],

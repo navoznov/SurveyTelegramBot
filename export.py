@@ -4,32 +4,28 @@
 import os, json, datetime
 import helpers
 from shutil import copyfile
+from botAnswerSaver import get_all_answer_files
 
 class Export:
     def export_to_html(self, admin_id):
         date_foramat = '%Y.%m.%d %H-%M-%S'
         self.__current_export_dir_name = datetime.datetime.utcnow().strftime(date_foramat)
-        export_dirpath = f'./export/{self.__current_export_dir_name}'
-        dirname = os.path.dirname(export_dirpath)
+        export_dir_path = f'./export/{self.__current_export_dir_name}'
+        dirname = os.path.dirname(export_dir_path)
         helpers.check_dir_exists(dirname)
-        export_voices_dirpath = os.path.join(export_dirpath, 'voices')
+        export_voices_dirpath = os.path.join(export_dir_path, 'voices')
         helpers.check_dir_exists(export_voices_dirpath)
 
-        files = self.__get_all_answer_files()
+        files = get_all_answer_files()
         joined_json_by_part = self.__join_json_files_by_part(files)
         for part_number, json_str in joined_json_by_part.items():
             user_answers = json.loads(json_str)
             html = self.__generate_html(user_answers)
             file_name = f'part {part_number}.html'
-            file_path = os.path.join(export_dirpath, file_name)
+            file_path = os.path.join(export_dir_path, file_name)
             open(file_path, 'w', encoding='utf-8').write(html)
 
-
-    def __get_all_answer_files(self):
-        dir_path = 'answers'
-        helpers.check_dir_exists(dir_path)
-        files = [os.path.join(dir_path, f) for f in os.listdir(dir_path) if os.path.isfile(os.path.join(dir_path, f))]
-        return files
+        return export_dir_path
 
 
     def __join_json_files_by_part(self, files):

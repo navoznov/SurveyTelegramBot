@@ -68,3 +68,29 @@ def save_user_answers_to_file(user: Optional['User'], user_data: Optional[Dict])
     with open(filename, 'w', encoding='utf-8') as f:
         json_str = json.dumps(user_answers_obj, ensure_ascii=False)
         f.write(json_str)
+
+
+def get_all_answer_files():
+    dir_path = 'answers'
+    helpers.check_dir_exists(dir_path)
+    file_paths = [os.path.join(dir_path, f) for f in os.listdir(dir_path) if os.path.isfile(os.path.join(dir_path, f))]
+    return file_paths
+
+
+def get_all_answer_usernames():
+    answer_file_paths = get_all_answer_files()
+    usernames = [get_username_from_answer_file(f) for f in answer_file_paths]
+    return [x for x in usernames if x != None]
+
+def get_username_from_answer_file(file_path):
+    json_str = open(file_path, 'r', encoding='utf-8').read()
+    answer = json.loads(json_str)
+    user_info = answer.get('user_info', None)
+    if user_info == None:
+        return None
+
+    username = user_info.get('username', None)
+    if username != None:
+        return username
+
+    return user_info.get('id', None)

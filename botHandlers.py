@@ -8,11 +8,10 @@ from telegram.ext import (
     CallbackContext,
     ConversationHandler
 )
+import shutil, os
+
 from options import Options
-import botMessageProvider
-import botStates
-import helpers
-import botAnswerSaver
+import botMessageProvider, botStates, helpers, botAnswerSaver
 import botPart1Handlers, botPart2Handlers, botPart3Handlers, botPart4Handlers
 import export
 
@@ -119,13 +118,49 @@ def fork_handler(update: Update, context: CallbackContext) -> int:
         return botStates.QUESTION_2_STATE
 
 
-def export_state_handler(update: Update, context: CallbackContext, admin_ids) -> int:
+def admin_state_handler(update: Update, context: CallbackContext, admin_ids) -> int:
     user = helpers.get_message(update).from_user
-    logger.info(f'Export attempt @{user.username}')
-    if user.id in admin_ids:
-        export.Export().export_to_html(user.id)
+    logger.info(f'@{user.username} tried to log in to the admin area')
+    if user.id not in admin_ids:
+        return botStates.START_STATE
 
-    return botStates.START_STATE
+    text = 'Вы вошли в админку.'
+    reply_keyboard = [['Получить список проголосовавших', 'Экспорт результатов в HTML']]
+    keyboard_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
+    helpers.get_message(update).reply_text(text, reply_markup=keyboard_markup)
+    return botStates.ADMIN_STATE
+
+
+def admin_get_answers_list_handler(update: Update, context: CallbackContext) -> int:
+    message = helpers.get_message(update)
+    user = message.from_user
+    logger.info(f'@{user.username} listed usernames')
+
+    usernames = botAnswerSaver.get_all_answer_usernames()
+    text = '\n'.join([f'@{x}' for x in usernames])
+    reply_keyboard = [['Вернуться в главное меню админки']]
+    keyboard_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
+    message.reply_text(text, parse_mode='Markdown', reply_markup=keyboard_markup, reply_to_message_id=message.message_id)
+    return botStates.ADMIN_USERNAME_LIST_STATE
+
+
+def admin_export_state_handler(update: Update, context: CallbackContext) -> int:
+    message = helpers.get_message(update)
+    user = message.from_user
+    logger.info(f'@{user.username} exported survey results')
+
+    export_dir_path = export.Export().export_to_html(user.id)
+    export_dir_path = os.path.normpath(export_dir_path)
+    archive_file_name = os.path.split(export_dir_path)[-1]
+    zip_file = shutil.make_archive(archive_file_name, 'zip', root_dir=export_dir_path, base_dir='.',)
+
+    reply_keyboard = [['Вернуться в главное меню админки']]
+    keyboard_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
+    with open(zip_file, 'rb') as f:
+        message.reply_document(f, reply_markup=keyboard_markup, reply_to_message_id=message.message_id)
+
+    os.remove(zip_file)
+    return botStates.ADMIN_EXPORT_RESULT_STATE
 
 
 def cancel(update: Update, context: CallbackContext) -> int:
