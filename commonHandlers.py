@@ -11,8 +11,8 @@ from telegram.ext import (
 import shutil, os
 
 from options import Options
-import botMessageProvider, botStates, helpers, answerHelper
-import botPart1Handlers, botPart2Handlers, botPart3Handlers, botPart4Handlers
+import messageTextProvider, states, helpers, answerHelper
+import part1Handlers, part2Handlers, part3Handlers, part4Handlers
 import export
 
 logging.basicConfig(
@@ -22,31 +22,31 @@ logger = logging.getLogger(__name__)
 def start_state_handler(update: Update, context: CallbackContext) -> int:
     # TODO: проверить, проходил ли юзер раньше этот опрос. если проходил то надо предупредить что ответы перезапишутся
 
-    text = botMessageProvider.get_start_state_text()
+    text = messageTextProvider.get_start_state_text()
     reply_keyboard = [['Начнем']]
     keyboard_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
     helpers.get_message(update).reply_text(text, reply_markup=keyboard_markup)
-    return botStates.START_STATE
+    return states.START_STATE
 
 
 def survey_finish_handler(update: Update, context: CallbackContext) -> int:
-    text = botMessageProvider.get_survey_finish_state_text()
+    text = messageTextProvider.get_survey_finish_state_text()
     reply_keyboard = [['Да', 'Нет']]
     keyboard_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
     helpers.get_message(update).reply_text(text, reply_markup=keyboard_markup)
-    context.user_data['state'] = botStates.SURVEY_FINISH_STATE
-    return botStates.SURVEY_FINISH_STATE
+    context.user_data['state'] = states.SURVEY_FINISH_STATE
+    return states.SURVEY_FINISH_STATE
 
 
 def plans_info_handler(update: Update, context: CallbackContext) -> int:
-    text = botMessageProvider.get_plans_info_state_text()
+    text = messageTextProvider.get_plans_info_state_text()
     helpers.get_message(update).reply_text(text, parse_mode='Markdown')
-    context.user_data['state'] = botStates.PLANS_INFO_STATE
-    return botStates.PLANS_INFO_STATE
+    context.user_data['state'] = states.PLANS_INFO_STATE
+    return states.PLANS_INFO_STATE
 
 
 def total_finish_handler(update: Update, context: CallbackContext) -> int:
-    if context.user_data['state'] == botStates.PLANS_INFO_STATE:
+    if context.user_data['state'] == states.PLANS_INFO_STATE:
         answerHelper.save_answer(update.message, context, 'final1')
     else:
         answerHelper.set_empty_answer(context.user_data, 'final1')
@@ -59,11 +59,11 @@ def total_finish_handler(update: Update, context: CallbackContext) -> int:
 
 
 def question_1_handler(update: Update, context: CallbackContext) -> int:
-    text = botMessageProvider.get_question_1_state_text()
+    text = messageTextProvider.get_question_1_state_text()
     reply_keyboard = [['1', '2'], ['3', 'Больше трех']]
     keyboard_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
     helpers.get_message(update).reply_text(text, reply_markup=keyboard_markup)
-    return botStates.QUESTION_1_STATE
+    return states.QUESTION_1_STATE
 
 
 def question_2_handler(update: Update, context: CallbackContext) -> int:
@@ -77,16 +77,16 @@ def question_2_handler(update: Update, context: CallbackContext) -> int:
     message = helpers.get_message(update)
     language_count = parse_answer(message.text)
     if language_count == -1:
-        return botStates.QUESTION_1_STATE
+        return states.QUESTION_1_STATE
 
     context.user_data['language_count'] = language_count
     context.user_data['start1'] = language_count
 
-    text = botMessageProvider.get_question_2_state_text()
+    text = messageTextProvider.get_question_2_state_text()
     reply_keyboard = [['Нет, не изучаю', 'Да, изучаю']]
     keyboard_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
     message.reply_text(text, reply_markup=keyboard_markup)
-    return botStates.QUESTION_2_STATE
+    return states.QUESTION_2_STATE
 
 
 def fork_handler(update: Update, context: CallbackContext) -> int:
@@ -101,7 +101,7 @@ def fork_handler(update: Update, context: CallbackContext) -> int:
 
         if language_count == 1:
             # Раздел 1
-            return botPart1Handlers.part_1_question_1_handler(update, context)
+            return part1Handlers.part_1_question_1_handler(update, context)
         else:
             # Раздел 3
             return part_3_question_1_handler(update, context)
@@ -110,25 +110,25 @@ def fork_handler(update: Update, context: CallbackContext) -> int:
 
         if language_count == 1:
             # Раздел 2
-            return botPart2Handlers.part_2_question_1_handler(update, context)
+            return part2Handlers.part_2_question_1_handler(update, context)
         else:
             # Раздел 4
-            return botPart4Handlers.part_4_question_1_handler(update, context)
+            return part4Handlers.part_4_question_1_handler(update, context)
     else:
-        return botStates.QUESTION_2_STATE
+        return states.QUESTION_2_STATE
 
 
 def admin_state_handler(update: Update, context: CallbackContext, admin_ids) -> int:
     user = helpers.get_message(update).from_user
     logger.info(f'@{user.username} tried to log in to the admin area')
     if user.id not in admin_ids:
-        return botStates.START_STATE
+        return states.START_STATE
 
     text = 'Вы вошли в админку.'
     reply_keyboard = [['Получить список проголосовавших'], ['Экспорт результатов в HTML']]
     keyboard_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
     helpers.get_message(update).reply_text(text, reply_markup=keyboard_markup)
-    return botStates.ADMIN_STATE
+    return states.ADMIN_STATE
 
 
 def admin_get_answers_list_handler(update: Update, context: CallbackContext) -> int:
@@ -141,7 +141,7 @@ def admin_get_answers_list_handler(update: Update, context: CallbackContext) -> 
     reply_keyboard = [['Вернуться в главное меню админки']]
     keyboard_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
     message.reply_text(text, parse_mode='Markdown', reply_markup=keyboard_markup, reply_to_message_id=message.message_id)
-    return botStates.ADMIN_USERNAME_LIST_STATE
+    return states.ADMIN_USERNAME_LIST_STATE
 
 
 def admin_export_state_handler(update: Update, context: CallbackContext) -> int:
@@ -160,7 +160,7 @@ def admin_export_state_handler(update: Update, context: CallbackContext) -> int:
         message.reply_document(f, reply_markup=keyboard_markup, reply_to_message_id=message.message_id)
 
     os.remove(zip_file)
-    return botStates.ADMIN_EXPORT_RESULT_STATE
+    return states.ADMIN_EXPORT_RESULT_STATE
 
 
 def cancel(update: Update, context: CallbackContext) -> int:
