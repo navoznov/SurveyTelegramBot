@@ -48,7 +48,7 @@ def plans_info_handler(update: Update, context: CallbackContext) -> int:
 
 def total_finish_handler(update: Update, context: CallbackContext) -> int:
     if context.user_data['state'] == botStates.PLANS_INFO_STATE:
-        botAnswerSaver.save_answer(update.message, context.user_data, 'final1')
+        botAnswerSaver.save_answer(update.message, context, 'final1')
     else:
         botAnswerSaver.set_empty_answer(context.user_data, 'final1')
 
@@ -122,10 +122,10 @@ def fork_handler(update: Update, context: CallbackContext) -> int:
 def export_state_handler(update: Update, context: CallbackContext, admin_ids) -> int:
     user = helpers.get_message(update).from_user
     logger.info(f'Export attempt @{user.username}')
-    if user.id not in admin_ids:
-        return botStates.START_STATE
+    if user.id in admin_ids:
+        admin.Export().export_to_html(user.id)
 
-    admin.export_to_html(user.id)
+    return botStates.START_STATE
 
 
 def cancel(update: Update, context: CallbackContext) -> int:

@@ -12,6 +12,7 @@ def save_answer(message: Message, context: CallbackContext, question_id: str) ->
     if not message.voice is None:
         file_id = message.voice.file_id
         user_id = message.from_user.id
+        # TODO: избавиться от захардкоженного ogg-формата, тут может быть и mp3 наверное
         filename = f'{user_id}/{file_id}.ogg'
         # TODO: вынести voices_dir_path в глобальную константу
         voices_dir_path ='answers/voices'
