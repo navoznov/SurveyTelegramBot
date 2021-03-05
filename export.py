@@ -66,12 +66,23 @@ class Export:
         rows_html = '\n'.join([self.__generate_table_row(ua) for ua in user_answers])
         tbody_html = self.__wrap_with_tag(rows_html, 'tbody')
         common_headers = ['Дата', 'ID', 'Username', 'Fullname', 'Part number']
-        answers_headers = [k for k in user_answers[0]['answers'].keys() if k != 'part_number']  # except part_number
+        answers = user_answers[0]['answers']
+        question_ids = [k for k in answers.keys() if k != 'part_number']    # except part_number
+        part_number = answers['part_number']
+        answers_headers = self.__get_answer_headers_by_question_ids(question_ids, part_number)
         headers = common_headers + answers_headers
         headers_html = '\n'.join([self.__wrap_with_tag(h, 'th') for h in headers])
         thead_html = self.__wrap_with_tag(headers_html, 'thead')
-
         return self.__wrap_with_tag(thead_html + tbody_html, 'table')
+
+
+    def __get_answer_headers_by_question_ids(self, question_ids, part_number):
+        json_str = open('shortQuestions.json', 'r', encoding='utf-8').read()
+        questions_info = json.loads(json_str)
+        part_number_key = f'part{part_number}'
+        question_id_shortname_mapping = questions_info['common']
+        question_id_shortname_mapping.update(questions_info[part_number_key])
+        return [question_id_shortname_mapping.get(id, id) for id in question_ids]
 
 
     def __generate_table_row(self, user_answer) -> str:
