@@ -36,7 +36,7 @@ def part_2_question_2_handler(update: Update, context: CallbackContext) -> int:
 def part_2_question_3_handler(update: Update, context: CallbackContext) -> int:
     message = helpers.get_message(update)
     answerHelper.save_answer(message, context, 'question2')
-    text = 'Какие *инструменты* используете для запоминания новых слов?'
+    text = 'Какие *методики/приложения* используете для запоминания новых слов?'
     message.reply_text(text, parse_mode='Markdown')
     return states.PART_2_QUESTION_3_STATE
 
@@ -44,7 +44,7 @@ def part_2_question_3_handler(update: Update, context: CallbackContext) -> int:
 def part_2_question_4_handler(update: Update, context: CallbackContext) -> int:
     message = helpers.get_message(update)
     answerHelper.save_answer(message, context, 'question3')
-    text = 'Бывают *проблемы с поиском* правильного смысла перевода?'
+    text = 'Бывают *сложности с поиском* правильного смысла перевода?'
     message.reply_text(text, parse_mode='Markdown')
     return states.PART_2_QUESTION_4_STATE
 
@@ -52,7 +52,7 @@ def part_2_question_4_handler(update: Update, context: CallbackContext) -> int:
 def part_2_question_5_handler(update: Update, context: CallbackContext) -> int:
     message = helpers.get_message(update)
     answerHelper.save_answer(message, context, 'question4')
-    text = 'Насколько вам важна *эффективность* процесса изучения языка?'
+    text = 'Что бы хотели улучшить, *сделать более эффективным*, в процессе изучения языка?'
     message.reply_text(text, parse_mode='Markdown')
     return states.PART_2_QUESTION_5_STATE
 

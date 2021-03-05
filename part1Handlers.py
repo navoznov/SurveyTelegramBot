@@ -21,7 +21,7 @@ def part_1_question_1_handler(update: Update, context: CallbackContext) -> int:
         answerHelper.set_empty_answer(context.user_data, key)
 
 
-    text = messageTextProvider.get_part_1_question_1_state_text()
+    text = 'Вы же как-то ищете перевод/смысл иностранных слов?'
     reply_keyboard = [['Да', 'Нет']]
     keyboard_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
     helpers.get_message(update).reply_text(text, reply_markup=keyboard_markup)
@@ -40,7 +40,7 @@ def part_1_question_2_handler(update: Update, context: CallbackContext) -> int:
 def part_1_question_3_handler(update: Update, context: CallbackContext) -> int:
     message = helpers.get_message(update)
     answerHelper.save_answer(message, context, 'question2')
-    text = 'Бывает так что правильное значение не найти сразу? Как убеждаетесь в правильном смысле?'
+    text = 'Как убеждаетесь в правильном смысле перевода? Бывает ли так, что уместный перевод не сразу находится?'
     message.reply_text(text)
     context.user_data['state'] = states.PART_1_QUESTION_3_STATE
     return states.PART_1_QUESTION_3_STATE
@@ -50,7 +50,7 @@ def part_1_question_4_handler(update: Update, context: CallbackContext) -> int:
     message = helpers.get_message(update)
     answerHelper.save_answer(message, context, 'question1')
 
-    text = 'Эх, тогда вопросов больше нет :) Расскажите вообще что думаете про изучение иностранных языков?'
+    text = 'Эх, тогда вопросов больше нет :) Расскажите, на ваш взгляд, как эффективней запоминать слова иностранного язык?'
     message.reply_text(text)
     context.user_data['state'] = states.PART_1_QUESTION_4_STATE
     return states.PART_1_QUESTION_4_STATE

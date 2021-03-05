@@ -22,7 +22,7 @@ def part_3_question_1_handler(update: Update, context: CallbackContext) -> int:
     for key in keys:
         answerHelper.set_empty_answer(context.user_data, key)
 
-    text = 'Какие инструменты использовали для запоминания новых слов?'
+    text = 'Какие техники/приложения использовали для запоминания новых слов?'
     helpers.get_message(update).reply_text(text)
     return states.PART_3_QUESTION_1_STATE
 
@@ -30,7 +30,7 @@ def part_3_question_1_handler(update: Update, context: CallbackContext) -> int:
 def part_3_question_2_handler(update: Update, context: CallbackContext) -> int:
     message = helpers.get_message(update)
     answerHelper.save_answer(message, context, 'question1')
-    text = 'Как искали перевод иностранного слова?'
+    text = 'Как искали перевод/смысл иностранного слова?'
     message.reply_text(text, parse_mode='Markdown')
     return states.PART_3_QUESTION_2_STATE
 
@@ -38,7 +38,7 @@ def part_3_question_2_handler(update: Update, context: CallbackContext) -> int:
 def part_3_question_3_handler(update: Update, context: CallbackContext) -> int:
     message = helpers.get_message(update)
     answerHelper.save_answer(message, context, 'question2')
-    text = 'Бывали проблемы с поиском правильного смысла перевода? Как находили верный перевод?'
+    text = 'Как убеждались в правильном смысле перевода? Бывает ли так, что уместный перевод не сразу находится?'
     message.reply_text(text, parse_mode='Markdown')
     return states.PART_3_QUESTION_3_STATE
 
@@ -97,7 +97,7 @@ def part_3_question_5_handler(update: Update, context: CallbackContext) -> int:
 def part_3_question_5_1_handler(update: Update, context: CallbackContext) -> int:
     message = helpers.get_message(update)
     answerHelper.save_answer(message, context, 'question5')
-    text = 'Что вас останавливает?'
+    text = 'Что вас мотивирует, а что останавливает?'
     message.reply_text(text, parse_mode='Markdown')
     return states.PART_3_QUESTION_5_1_STATE
 

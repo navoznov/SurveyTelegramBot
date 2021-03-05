@@ -50,7 +50,7 @@ def part_4_question_3_handler(update: Update, context: CallbackContext) -> int:
 def part_4_question_4_handler(update: Update, context: CallbackContext) -> int:
     message = helpers.get_message(update)
     answerHelper.save_answer(message, context, 'question3')
-    text = 'Бывают *проблемы с поиском* правильного смысла перевода?'
+    text = 'Бывают *сложности с поиском* правильного смысла перевода?'
     reply_keyboard = [['Да', 'Нет']]
     keyboard_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
     message.reply_text(text, parse_mode='Markdown', reply_markup=keyboard_markup)
@@ -82,7 +82,7 @@ def part_4_question_5_handler(update: Update, context: CallbackContext) -> int:
     elif context.user_data['state'] == states.PART_4_QUESTION_4_2_STATE:
         answerHelper.save_answer(message, context, 'question4_2')
 
-    text = 'Какие методики используете чтобы запоминать новые слова'
+    text = 'Какие *методики/приложения* используете чтобы запоминать новые слова?'
     message.reply_text(text, parse_mode='Markdown')
     return states.PART_4_QUESTION_5_STATE
 
@@ -90,7 +90,7 @@ def part_4_question_5_handler(update: Update, context: CallbackContext) -> int:
 def part_4_question_6_handler(update: Update, context: CallbackContext) -> int:
     message = helpers.get_message(update)
     answerHelper.save_answer(message, context, 'question5')
-    text = 'Какие еще *инструменты* используете для изучения языка'
+    text = 'Какие еще *инструменты* используете для изучения языка в целом?'
     message.reply_text(text, parse_mode='Markdown')
     return states.PART_4_QUESTION_6_STATE
 
@@ -98,7 +98,7 @@ def part_4_question_6_handler(update: Update, context: CallbackContext) -> int:
 def part_4_question_7_handler(update: Update, context: CallbackContext) -> int:
     message = helpers.get_message(update)
     answerHelper.save_answer(message, context, 'question6')
-    text = 'Как *знание* других языков и *опыт* их изучения *помогает* с новым языком'
+    text = 'Как *знание* других языков и *опыт* их изучения *помогает* с новым языком?'
     message.reply_text(text, parse_mode='Markdown')
     return states.PART_4_QUESTION_7_STATE
 
@@ -106,7 +106,7 @@ def part_4_question_7_handler(update: Update, context: CallbackContext) -> int:
 def part_4_question_8_handler(update: Update, context: CallbackContext) -> int:
     message = helpers.get_message(update)
     answerHelper.save_answer(message, context, 'question7')
-    text = 'Проверяете ли значение нового слова в переводе на известные вам языки?'
+    text = 'Проверяете ли значение нового слова переводя на разные известные вам языки?'
     reply_keyboard = [['Да', 'Нет']]
     keyboard_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
     message.reply_text(text, reply_markup=keyboard_markup)
@@ -126,7 +126,7 @@ def part_4_question_8_yes_1_handler(update: Update, context: CallbackContext) ->
 def part_4_question_8_no_1_handler(update: Update, context: CallbackContext) -> int:
     message = helpers.get_message(update)
     answerHelper.save_answer(message, context, 'question8')
-    text = 'Как узнаете смысл слова? Переводите обычно на свой родной язык или как-то иначе?'
+    text = 'Как узнаете смысл слова? Переводите обычно только на свой родной язык или как-то иначе?'
     message.reply_text(text, parse_mode='Markdown')
     context.user_data['state'] = states.PART_4_QUESTION_8_NO_1_STATE
     return states.PART_4_QUESTION_8_NO_1_STATE
@@ -139,7 +139,7 @@ def part_4_question_9_handler(update: Update, context: CallbackContext) -> int:
     elif context.user_data['state'] == states.PART_4_QUESTION_8_NO_1_STATE:
         answerHelper.save_answer(message, context, 'question8_no_1')
 
-    text = 'Насколько вам важна *эффективность* процесса изучения языка?'
+    text = 'Что бы хотели улучшить, *сделать более эффективным*, в процессе изучения языка?'
     message.reply_text(text, parse_mode='Markdown')
     return states.PART_4_QUESTION_9_STATE
 

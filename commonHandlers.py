@@ -82,7 +82,7 @@ def question_2_handler(update: Update, context: CallbackContext) -> int:
     context.user_data['language_count'] = language_count
     context.user_data['start1'] = language_count
 
-    text = messageTextProvider.get_question_2_state_text()
+    text = 'Сейчас изучаете ещё один новый язык?'
     reply_keyboard = [['Нет, не изучаю', 'Да, изучаю']]
     keyboard_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
     message.reply_text(text, reply_markup=keyboard_markup)
