@@ -65,8 +65,9 @@ class Export:
 
         rows_html = '\n'.join([self.__generate_table_row(ua) for ua in user_answers])
         tbody_html = self.__wrap_with_tag(rows_html, 'tbody')
-
-        headers = ['Дата', 'ID', 'Username', 'Fullname', 'Part number'] + [k for k in user_answers[0]['answers'].keys() if k != 'part_number']  # except part_number
+        common_headers = ['Дата', 'ID', 'Username', 'Fullname', 'Part number']
+        answers_headers = [k for k in user_answers[0]['answers'].keys() if k != 'part_number']  # except part_number
+        headers = common_headers + answers_headers
         headers_html = '\n'.join([self.__wrap_with_tag(h, 'th') for h in headers])
         thead_html = self.__wrap_with_tag(headers_html, 'thead')
 
